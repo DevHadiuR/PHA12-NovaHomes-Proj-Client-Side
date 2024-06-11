@@ -45,9 +45,9 @@ const Header = () => {
   );
 
   return (
-    <div>
-      <Navbar className="sticky shadow-none top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4">
-        <div className="flex items-center border-b-2 border-gray-400 pb-2  text-[#39474F] justify-between">
+    <div className="">
+      <Navbar className="fixed  z-50 top-0 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4">
+        <div className="flex items-center  text-[#39474F] justify-between">
           <Typography
             as="a"
             href="/"
@@ -67,7 +67,9 @@ const Header = () => {
               >
                 <span>Log In</span>
               </Button>
-              <span className="text-black text-3xl mr-3 hidden lg:inline-block">/</span>
+              <span className="text-black text-3xl mr-3 hidden lg:inline-block">
+                /
+              </span>
               <Button
                 variant="gradient"
                 size="sm"
@@ -122,7 +124,13 @@ const Header = () => {
             <Button fullWidth variant="text" size="sm" className="">
               <span>Log In</span>
             </Button>
-            <Button fullWidth variant="gradient" color="amber" size="sm" className="">
+            <Button
+              fullWidth
+              variant="gradient"
+              color="amber"
+              size="sm"
+              className=""
+            >
               <span>Sign UP</span>
             </Button>
           </div>
