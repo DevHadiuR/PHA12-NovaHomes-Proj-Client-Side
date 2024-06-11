@@ -9,7 +9,7 @@ import {
   Button,
   IconButton,
 } from "@material-tailwind/react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const Header = () => {
   const [openNav, setOpenNav] = React.useState(false);
@@ -87,24 +87,28 @@ const Header = () => {
           </div>
           <div className="">
             <div className="flex items-center gap-x-1">
-              <Button
-                variant="text"
-                size="sm"
-                className="hidden text-[#39474F]  text-base hover:bg-transparent lg:inline-block border-animate"
-              >
-                <span>Log In</span>
-              </Button>
+              <Link to="/login">
+                <Button
+                  variant="text"
+                  size="sm"
+                  className="hidden text-[#39474F]  text-base hover:bg-transparent lg:inline-block border-animate"
+                >
+                  <span>Log In</span>
+                </Button>
+              </Link>
               <span className="text-black text-3xl mr-3 hidden lg:inline-block">
                 /
               </span>
-              <Button
-                variant="gradient"
-                size="sm"
-                color="amber"
-                className="hidden text-[#39474F] text-base lg:inline-block"
-              >
-                <span>Sign Up</span>
-              </Button>
+              <Link to="/register">
+                <Button
+                  variant="gradient"
+                  size="sm"
+                  color="amber"
+                  className="hidden text-[#39474F] text-base lg:inline-block"
+                >
+                  <span>REGISTER</span>
+                </Button>
+              </Link>
             </div>
             <IconButton
               variant="text"
@@ -148,18 +152,22 @@ const Header = () => {
         <MobileNav className="text-[#39474F]" open={openNav}>
           {navList}
           <div className="flex items-center gap-x-1">
-            <Button fullWidth variant="text" size="sm" className="">
-              <span>Log In</span>
-            </Button>
-            <Button
-              fullWidth
-              variant="gradient"
-              color="amber"
-              size="sm"
-              className=""
-            >
-              <span>Sign UP</span>
-            </Button>
+            <Link to="/login">
+              <Button fullWidth variant="text" size="sm" className="">
+                <span>Log In</span>
+              </Button>
+            </Link>
+            <Link to="/register">
+              <Button
+                fullWidth
+                variant="gradient"
+                color="amber"
+                size="sm"
+                className=""
+              >
+                <span>REGISTER</span>
+              </Button>
+            </Link>
           </div>
         </MobileNav>
       </Navbar>
