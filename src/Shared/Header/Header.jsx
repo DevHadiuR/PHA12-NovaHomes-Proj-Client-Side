@@ -1,5 +1,6 @@
 import React from "react";
 import logo from "../../assets/titleLogo1.jpg";
+import "./Header.css";
 
 import {
   Navbar,
@@ -8,6 +9,7 @@ import {
   Button,
   IconButton,
 } from "@material-tailwind/react";
+import { NavLink } from "react-router-dom";
 
 const Header = () => {
   const [openNav, setOpenNav] = React.useState(false);
@@ -22,30 +24,55 @@ const Header = () => {
   const navList = (
     <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
       <Typography as="li" className="p-1 font-semibold">
-        <a href="#" className="flex items-center">
-          Pages
-        </a>
+        <NavLink
+          to="/"
+          className="transition-all  px-3 py-2  hover:bg-transparent border-animate"
+          style={({ isActive }) => {
+            return {
+              borderBottom: isActive ? "2px solid #39474F" : "",
+              backgroundColor: isActive ? "transparent" : "transparent",
+              // color: isActive ? "white" : "white",
+            };
+          }}
+        >
+          Home
+        </NavLink>
       </Typography>
       <Typography as="li" className="p-1 font-semibold">
-        <a href="#" className="flex items-center">
-          Account
-        </a>
+        <NavLink
+          to="/h"
+          className="transition-all  px-3 py-2  hover:bg-transparent border-animate"
+          style={({ isActive }) => {
+            return {
+              borderBottom: isActive ? "2px solid #39474F" : "",
+              backgroundColor: isActive ? "transparent" : "transparent",
+              // color: isActive ? "white" : "white",
+            };
+          }}
+        >
+          All Properties
+        </NavLink>
       </Typography>
-      <Typography as="li" className="p-1 font-semibold">
-        <a href="#" className="flex items-center">
-          Blocks
-        </a>
-      </Typography>
-      <Typography as="li" className="p-1 font-semibold">
-        <a href="#" className="flex items-center">
-          Docs
-        </a>
+      <Typography as="li" className="p-1 font-semibold ">
+        <NavLink
+          to="/h"
+          className="transition-all  px-3 py-2  hover:bg-transparent border-animate"
+          style={({ isActive }) => {
+            return {
+              borderBottom: isActive ? "2px solid #39474F" : "",
+              backgroundColor: isActive ? "transparent" : "transparent",
+              // color: isActive ? "white" : "white",
+            };
+          }}
+        >
+          Dashboard
+        </NavLink>
       </Typography>
     </ul>
   );
 
   return (
-    <div className="">
+    <div className="mb-28">
       <Navbar className="fixed  z-50 top-0 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4">
         <div className="flex items-center  text-[#39474F] justify-between">
           <Typography
@@ -63,7 +90,7 @@ const Header = () => {
               <Button
                 variant="text"
                 size="sm"
-                className="hidden text-[#39474F]  text-base hover:bg-transparent lg:inline-block"
+                className="hidden text-[#39474F]  text-base hover:bg-transparent lg:inline-block border-animate"
               >
                 <span>Log In</span>
               </Button>
