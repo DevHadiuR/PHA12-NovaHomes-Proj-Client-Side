@@ -1,6 +1,24 @@
+import { useQuery } from "@tanstack/react-query";
 import DynamicTitleDesc from "../../../Shared/dynamicTitleDesc/DynamicTitleDesc";
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
+  Typography,
+  Button,
+} from "@material-tailwind/react";
+import axios from "axios";
 
 const Advertisement = () => {
+  const { data: allProperties = [] } = useQuery({
+    queryKey: ["allProperties"],
+    queryFn: async () => {
+      const res = await axios.get("/properties.json");
+      return res.data;
+    },
+  });
+
   return (
     <div>
       <div>
@@ -13,7 +31,36 @@ const Advertisement = () => {
       </div>
 
       {/* 6 advertisement cards */}
-      
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {/* card */}
+        {allProperties.slice(0, 6).map((property, idx) => (
+          <Card key={idx} className="mt-10 ">
+            <CardHeader color="blue-gray" className="relative overflow-hidden">
+              <img
+                className="h-96 w-full object-cover transition duration-300 ease-in-out transform hover:brightness-75 cursor-pointer"
+                src={property.propertyImage}
+                alt="card-image"
+              />
+              <p className="absolute bottom-5 left-8 text-xl font-semibold ">
+                {property.priceRange}
+              </p>
+              <p className="absolute top-3 right-5 bg-amber-800 py-1 px-2 rounded-lg  text-lg font-bold">
+                {property.verificationStatus}
+              </p>
+            </CardHeader>
+            <CardBody>
+              <Typography variant="h4" className="mb-2 text-[#39474F]">
+                {property.propertyLocation}
+              </Typography>
+            </CardBody>
+            <CardFooter className="pt-0">
+              <Button color="amber" className="text-sm md:text-base">
+                View Details
+              </Button>
+            </CardFooter>
+          </Card>
+        ))}
+      </div>
     </div>
   );
 };

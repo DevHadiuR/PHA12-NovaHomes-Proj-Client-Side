@@ -1,0 +1,50 @@
+[
+  {
+    "propertyImage": "https://i.ibb.co/p0cvMbG/1.jpg",
+    "propertyLocation": "123 Elm Street, Springfield",
+    "priceRange": "$250,000 - $300,000",
+    "verificationStatus": "Verified",
+    "name": "Kala Vai",
+    "email": "kala@dola.com"
+  },
+  {
+    "propertyImage": "https://i.ibb.co/tqz8gCp/2.jpg",
+    "propertyLocation": "456 Maple Avenue, Shelbyville",
+    "priceRange": "$180,000 - $220,000",
+    "verificationStatus": "Verified",
+    "name": "Kala Vai",
+    "email": "kala@dola.com"
+  },
+  {
+    "propertyImage": "https://i.ibb.co/7Gcp272/3.jpg",
+    "propertyLocation": "789 Oak Lane, Capital City",
+    "priceRange": "$300,000 - $350,000",
+    "verificationStatus": "Verified",
+    "name": "Kala Vai",
+    "email": "kala@dola.com"
+  },
+  {
+    "propertyImage": "https://i.ibb.co/6PvzpPq/4.jpg",
+    "propertyLocation": "101 Pine Street, Ogdenville",
+    "priceRange": "$220,000 - $260,000",
+    "verificationStatus": "Verified",
+    "name": "Kala Vai",
+    "email": "kala@dola.com"
+  },
+  {
+    "propertyImage": "https://i.ibb.co/dc6DXV9/5.jpg",
+    "propertyLocation": "202 Birch Road, North Haverbrook",
+    "priceRange": "$400,000 - $450,000",
+    "verificationStatus": "Verified",
+    "name": "Kala Vai",
+    "email": "kala@dola.com"
+  },
+  {
+    "propertyImage": "https://i.ibb.co/v12WyjC/6.jpg",
+    "propertyLocation": "303 Cedar Street, Brockway",
+    "priceRange": "$150,000 - $200,000",
+    "verificationStatus": "Verified",
+    "name": "Kala Vai",
+    "email": "kala@dola.com"
+  }
+]
