@@ -11,6 +11,7 @@ import {
 } from "@material-tailwind/react";
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../hook/useAuth";
+import { IoPower } from "react-icons/io5";
 
 const Header = () => {
   const { user } = useAuth();
@@ -88,10 +89,39 @@ const Header = () => {
           <div className="flex items-center gap-4">
             <div className="mr-4 hidden lg:block">{navList}</div>
           </div>
-          <div className="">
+          <div className="flex items-center gap-2">
             <div className="flex items-center gap-x-1">
               {user ? (
-                <button>logout</button>
+                <div className="dropdown md:dropdown-hover">
+                  <div tabIndex={0} role="button" className="avatar m-1">
+                    <div className="w-10 md:w-12 lg:w-14 rounded-full ring ring-[#FDB913] ring-offset-base-100 ring-offset-2">
+                      <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                    </div>
+                  </div>
+                  <ul
+                    tabIndex={0}
+                    className="dropdown-content border-2 -right-2 md:right-6  z-50 menu p-2 shadow-md bg-base-100 rounded-box text-base md:text-lg text-[#39474F]"
+                  >
+                    <li>
+                      <p>Hadiur Rahman</p>
+                    </li>
+                    <li>
+                      <p>hadiurahman139@gmail.com</p>
+                    </li>
+                    <li></li>
+                    <li className="w-full my-3">
+                      <Button
+                        color="amber"
+                        size="sm"
+                        className="flex justify-center items-center gap-2 text-sm md:text-base w-full hover:bg-[#39474F] hover:text-white"
+                      >
+                        {" "}
+                        <IoPower />
+                        Sign Out
+                      </Button>
+                    </li>
+                  </ul>
+                </div>
               ) : (
                 <>
                   <Link to="/login">
@@ -119,6 +149,7 @@ const Header = () => {
                 </>
               )}
             </div>
+
             <IconButton
               variant="text"
               className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"

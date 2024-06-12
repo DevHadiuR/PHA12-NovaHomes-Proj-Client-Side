@@ -22,7 +22,7 @@ import { Autoplay, Pagination, Navigation } from "swiper/modules";
 
 const Banner = () => {
   return (
-    <div className=" mb-24">
+    <div className="mb-24 z-0">
       <Swiper
         loop={true}
         spaceBetween={30}
@@ -38,7 +38,7 @@ const Banner = () => {
         modules={[Autoplay, Pagination, Navigation]}
         className="mySwiper"
       >
-        <SwiperSlide>
+        <SwiperSlide className="">
           {" "}
           <div
             className="hero min-h-screen"
