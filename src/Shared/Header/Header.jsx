@@ -12,9 +12,11 @@ import {
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../hook/useAuth";
 import { IoPower } from "react-icons/io5";
+import Swal from "sweetalert2";
 
 const Header = () => {
-  const { user } = useAuth();
+  const { user, logoutUser } = useAuth();
+  const { email, photoURL, displayName } = user || {};
 
   const [openNav, setOpenNav] = React.useState(false);
 
@@ -24,6 +26,28 @@ const Header = () => {
       () => window.innerWidth >= 960 && setOpenNav(false)
     );
   }, []);
+
+  // logout the user
+  const logout = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You Wanna Sign Out ?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "SURE",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        logoutUser();
+        Swal.fire({
+          title: "Hmmmmmmmm!!",
+          text: "Sir You Have Successfully Sign Out!",
+          icon: "success",
+        });
+      }
+    });
+  };
 
   const navList = (
     <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
@@ -95,7 +119,7 @@ const Header = () => {
                 <div className="dropdown md:dropdown-hover">
                   <div tabIndex={0} role="button" className="avatar m-1">
                     <div className="w-10 md:w-12 lg:w-14 rounded-full ring ring-[#FDB913] ring-offset-base-100 ring-offset-2">
-                      <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                      <img src={photoURL} />
                     </div>
                   </div>
                   <ul
@@ -103,14 +127,15 @@ const Header = () => {
                     className="dropdown-content border-2 -right-2 md:right-6  z-50 menu p-2 shadow-md bg-base-100 rounded-box text-base md:text-lg text-[#39474F]"
                   >
                     <li>
-                      <p>Hadiur Rahman</p>
+                      <p>{displayName}</p>
                     </li>
                     <li>
-                      <p>hadiurahman139@gmail.com</p>
+                      <p>{email}</p>
                     </li>
                     <li></li>
                     <li className="w-full my-3">
                       <Button
+                        onClick={logout}
                         color="amber"
                         size="sm"
                         className="flex justify-center items-center gap-2 text-sm md:text-base w-full hover:bg-[#39474F] hover:text-white"
@@ -192,22 +217,26 @@ const Header = () => {
         <MobileNav className="text-[#39474F]" open={openNav}>
           {navList}
           <div className="flex items-center gap-x-1 ">
-            <Link className="w-full" to="/login">
-              <Button
-                fullWidth
-                variant="outlined"
-                size="sm"
-                className="border-[#39474F]"
-              >
-                <span>Log In</span>
-              </Button>
-            </Link>
+            {!user && (
+              <>
+                <Link className="w-full" to="/login">
+                  <Button
+                    fullWidth
+                    variant="outlined"
+                    size="sm"
+                    className="border-[#39474F]"
+                  >
+                    <span>Log In</span>
+                  </Button>
+                </Link>
 
-            <Link to="/register" className="w-full">
-              <Button fullWidth variant="gradient" color="amber" size="sm">
-                <span>REGISTER</span>
-              </Button>
-            </Link>
+                <Link to="/register" className="w-full">
+                  <Button fullWidth variant="gradient" color="amber" size="sm">
+                    <span>REGISTER</span>
+                  </Button>
+                </Link>
+              </>
+            )}
           </div>
         </MobileNav>
       </Navbar>
