@@ -90,7 +90,9 @@ const Header = () => {
           </div>
           <div className="">
             <div className="flex items-center gap-x-1">
-              {user || (
+              {user ? (
+                <button>logout</button>
+              ) : (
                 <>
                   <Link to="/login">
                     <Button
@@ -116,8 +118,6 @@ const Header = () => {
                   </Link>
                 </>
               )}
-
-              {user && <button>logout</button>}
             </div>
             <IconButton
               variant="text"

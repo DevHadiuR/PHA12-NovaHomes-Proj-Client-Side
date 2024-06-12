@@ -3,18 +3,23 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { IoMdEyeOff } from "react-icons/io";
 import { IoEye } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Swal from "sweetalert2";
 import "sweetalert2/src/sweetalert2.scss";
+import useAuth from "../../hook/useAuth";
+import { updateProfile } from "firebase/auth";
 
 const Register = () => {
   const [showPass, setShowPass] = useState(false);
+  const { createUser, setUser } = useAuth();
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
-
+    reset,
     formState: { errors },
   } = useForm();
 
@@ -22,8 +27,79 @@ const Register = () => {
     setShowPass(!showPass);
   };
 
+  const handleError = (er) => {
+    toast.error(er, {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      transition: Bounce,
+    });
+  };
+
   const onSubmit = (data) => {
     console.log(data);
+    const { name, email, password, photo } = data;
+
+    if (!/@.*\.com$/.test(email)) {
+      handleError("Email must contain with '.com' at the end!");
+      return;
+    } else if (!password.length > 6) {
+      handleError("Password must be at least 6 characters long!");
+      return;
+    } else if (!/[A-Z]/.test(password)) {
+      handleError("Password must contain at least one uppercase letter!");
+      return;
+    } else if (!/[a-z]/.test(password)) {
+      handleError("Password must contain at least one lowercase letter!");
+      return;
+    } else if (!/[$&+,:;=?@#|'<>.^*()%!-]/.test(password)) {
+      handleError("Password must contain at least one special character!");
+      return;
+    } else if (!/\d.*\d/.test(password)) {
+      handleError("Password must contain at least 2 digit numbers!");
+      return;
+    }
+
+    createUser(email, password)
+      .then((res) => {
+        const user = res.user;
+        console.log(user);
+        Swal.fire({
+          title: "Congratulation!",
+          text: "You Have Successfully Registered!",
+          icon: "success",
+        });
+        updateProfile(user, {
+          displayName: name,
+          photoURL: photo,
+        });
+
+        setUser({
+          ...user,
+          photoURL: photo,
+          displayName: name,
+        });
+
+        navigate("/");
+
+        reset();
+      })
+      .catch((error) => {
+        const err = error.message
+          .split("/")
+          .pop()
+          .replace(/^\w/, (c) => c.toUpperCase());
+        Swal.fire({
+          icon: "error",
+          title: "Sorry...",
+          text: err,
+        });
+      });
   };
 
   return (
@@ -137,6 +213,7 @@ const Register = () => {
               >
                 SUBMIT
               </Button>
+              <ToastContainer />
             </div>
           </form>
           <div className="mt-10 ">
