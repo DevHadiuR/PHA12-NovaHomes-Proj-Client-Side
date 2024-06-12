@@ -151,20 +151,20 @@ const Header = () => {
         </div>
         <MobileNav className="text-[#39474F]" open={openNav}>
           {navList}
-          <div className="flex items-center gap-x-1">
-            <Link to="/login">
-              <Button fullWidth variant="text" size="sm" className="">
+          <div className="flex items-center gap-x-1 ">
+            <Link className="w-full" to="/login">
+              <Button
+                fullWidth
+                variant="outlined"
+                size="sm"
+                className="border-[#39474F]"
+              >
                 <span>Log In</span>
               </Button>
             </Link>
-            <Link to="/register">
-              <Button
-                fullWidth
-                variant="gradient"
-                color="amber"
-                size="sm"
-                className=""
-              >
+
+            <Link to="/register" className="w-full">
+              <Button fullWidth variant="gradient" color="amber" size="sm">
                 <span>REGISTER</span>
               </Button>
             </Link>
