@@ -5,10 +5,17 @@ import { FaGithub, FaTwitter } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { IoMdEyeOff } from "react-icons/io";
 import { IoEye } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useAuth from "../../hook/useAuth";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const [showPass, setShowPass] = useState(false);
+  const navigate = useNavigate();
+  const { loginUser, googleProvider, gitHubProvider, twitterProvider } =
+    useAuth();
+
+  // use hook form
   const {
     register,
     handleSubmit,
@@ -20,8 +27,96 @@ const Login = () => {
     setShowPass(!showPass);
   };
 
+  //    email & password verification
   const onSubmit = (data) => {
     console.log(data);
+    const { email, password } = data;
+    loginUser(email, password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        Swal.fire({
+          title: "Hurray !!!",
+          text: "You Have Successfully Loged In!",
+          icon: "success",
+        });
+
+        navigate("/");
+      })
+      .catch(() => {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "User Not Found !",
+        });
+      });
+  };
+
+  // login with gooogle --
+  const handleGoogleLogin = () => {
+    googleProvider()
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        Swal.fire({
+          title: "Hurray !!!",
+          text: "You Have Successfully Loged In!",
+          icon: "success",
+        });
+
+        navigate("/");
+      })
+      .catch(() => {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "User Not Found !",
+        });
+      });
+  };
+  // login with github --
+  const handleGithubLogin = () => {
+    gitHubProvider()
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        Swal.fire({
+          title: "Hurray !!!",
+          text: "You Have Successfully Loged In!",
+          icon: "success",
+        });
+
+        navigate("/");
+      })
+      .catch(() => {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "User Not Found !",
+        });
+      });
+  };
+  // login with twitter --
+  const handleTwitterLogin = () => {
+    twitterProvider()
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        Swal.fire({
+          title: "Hurray !!!",
+          text: "You Have Successfully Loged In!",
+          icon: "success",
+        });
+
+        navigate("/");
+      })
+      .catch(() => {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "User Not Found !",
+        });
+      });
   };
 
   return (
@@ -100,23 +195,25 @@ const Login = () => {
             </div>
           </form>
           {/* -------------------------- */}
-          <p className="text-[#39474F] text-xl text-center font-semibold mt-14">OR</p>
+          <p className="text-[#39474F] text-xl text-center font-semibold mt-14">
+            OR
+          </p>
           <div className="text-[#39474F] border-t border-[#39474F] pt-10 mt-6">
             <div className="flex justify-center items-center mb-5 gap-6">
               <span
-                // onClick={handleGoogleLogin}
+                onClick={handleGoogleLogin}
                 className="border-2 p-2 border-[#39474F] rounded-full"
               >
                 <FcGoogle className="text-2xl cursor-pointer hover:scale-125 transition-all" />
               </span>
               <span
-                // onClick={handleGithubLogin}
+                onClick={handleGithubLogin}
                 className="border-2 p-2 border-[#39474F] rounded-full"
               >
                 <FaGithub className="text-2xl cursor-pointer hover:scale-125 transition-all" />
               </span>
               <span
-                // onClick={handleTwitterLogin}
+                onClick={handleTwitterLogin}
                 className="border-2 p-2 border-[#39474F] rounded-full"
               >
                 <FaTwitter className="text-2xl cursor-pointer hover:scale-125 transition-all text-blue-500" />
