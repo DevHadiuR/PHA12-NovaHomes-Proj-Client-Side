@@ -9,6 +9,7 @@ import {
   Button,
 } from "@material-tailwind/react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Advertisement = () => {
   const { data: allProperties = [] } = useQuery({
@@ -54,9 +55,11 @@ const Advertisement = () => {
               </Typography>
             </CardBody>
             <CardFooter className="pt-0">
-              <Button color="amber" className="text-sm md:text-base">
-                View Details
-              </Button>
+              <Link to="/propertyDetails">
+                <Button color="amber" className="text-sm md:text-base">
+                  View Details
+                </Button>
+              </Link>
             </CardFooter>
           </Card>
         ))}

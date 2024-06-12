@@ -4,47 +4,53 @@
     "propertyLocation": "123 Elm Street, Springfield",
     "priceRange": "$250,000 - $300,000",
     "verificationStatus": "Verified",
-    "name": "Kala Vai",
-    "email": "kala@dola.com"
+    "agentName": "Kala Vai",
+    "email": "kala@dola.com",
+    "propertyDescription": "This charming family home in Springfield is a perfect blend of comfort and modernity. Located on the peaceful Elm Street, this property boasts three spacious bedrooms, two full bathrooms, and an open-plan living area that is ideal for entertaining guests. The recently renovated kitchen features stainless steel appliances and granite countertops. Outside, you'll find a beautifully landscaped garden and a large backyard, perfect for summer barbecues and children's play. The neighborhood is family-friendly with excellent schools, parks, and local amenities all within walking distance. This home offers the perfect suburban lifestyle with the convenience of city living just a short drive away."
   },
   {
     "propertyImage": "https://i.ibb.co/tqz8gCp/2.jpg",
     "propertyLocation": "456 Maple Avenue, Shelbyville",
     "priceRange": "$180,000 - $220,000",
     "verificationStatus": "Verified",
-    "name": "Kala Vai",
-    "email": "kala@dola.com"
+    "agentName": "Kala Vai",
+    "email": "kala@dola.com",
+    "propertyDescription": "Situated on a quiet, tree-lined street in Shelbyville, this delightful home on Maple Avenue is perfect for small families or first-time buyers. The property features two cozy bedrooms, a modern bathroom, and a bright and airy living room with large windows that let in plenty of natural light. The kitchen is well-equipped with updated appliances and ample storage space. A spacious backyard offers plenty of room for gardening, relaxing, or entertaining. The home is located close to local shops, cafes, and schools, making it a convenient choice for families. With its charming curb appeal and warm interior, this home is ready for you to move in and make it your own."
   },
   {
     "propertyImage": "https://i.ibb.co/7Gcp272/3.jpg",
     "propertyLocation": "789 Oak Lane, Capital City",
     "priceRange": "$300,000 - $350,000",
     "verificationStatus": "Verified",
-    "name": "Kala Vai",
-    "email": "kala@dola.com"
+    "agentName": "Kala Vai",
+    "email": "kala@dola.com",
+    "propertyDescription": "Experience luxury living in this stunning home located on Oak Lane in Capital City. This property features four spacious bedrooms, three modern bathrooms, and an expansive open-plan living area with high ceilings and large windows that flood the space with natural light. The gourmet kitchen is a chef's dream, complete with top-of-the-line appliances, custom cabinetry, and a large island perfect for meal prep and casual dining. The master suite is a true retreat, featuring a walk-in closet and a spa-like ensuite bathroom with a soaking tub and separate shower. The backyard is an entertainer's paradise with a covered patio, a built-in barbecue, and a beautifully landscaped garden. Conveniently located near top-rated schools, shopping centers, and recreational facilities, this home offers everything you need for a luxurious and comfortable lifestyle."
   },
   {
     "propertyImage": "https://i.ibb.co/6PvzpPq/4.jpg",
     "propertyLocation": "101 Pine Street, Ogdenville",
     "priceRange": "$220,000 - $260,000",
     "verificationStatus": "Verified",
-    "name": "Kala Vai",
-    "email": "kala@dola.com"
+    "agentName": "Kala Vai",
+    "email": "kala@dola.com",
+    "propertyDescription": "Located in the heart of Ogdenville, this beautiful home on Pine Street is perfect for those seeking both comfort and convenience. The property features three bedrooms, two bathrooms, and a large living area with a cozy fireplace. The modern kitchen is equipped with stainless steel appliances, ample counter space, and a breakfast nook. The master bedroom includes an ensuite bathroom and a walk-in closet. The backyard is perfect for outdoor activities, with a large deck, mature trees, and plenty of space for gardening. This home is within walking distance to local parks, shops, and restaurants, making it an ideal location for families and professionals alike. With its blend of traditional charm and modern amenities, this home is a must-see."
   },
   {
     "propertyImage": "https://i.ibb.co/dc6DXV9/5.jpg",
     "propertyLocation": "202 Birch Road, North Haverbrook",
     "priceRange": "$400,000 - $450,000",
     "verificationStatus": "Verified",
-    "name": "Kala Vai",
-    "email": "kala@dola.com"
+    "agentName": "Kala Vai",
+    "email": "kala@dola.com",
+    "propertyDescription": "This exquisite property on Birch Road in North Haverbrook is the epitome of luxury living. With five spacious bedrooms, four bathrooms, and a grand open-plan living area, this home is perfect for large families or those who love to entertain. The gourmet kitchen features high-end appliances, custom cabinetry, and a large island with seating. The master suite is a private oasis, complete with a walk-in closet, a spa-like bathroom with a soaking tub, and a private balcony overlooking the landscaped backyard. The outdoor space includes a large patio, a swimming pool, and a lush garden, providing the perfect setting for outdoor gatherings. Located in a prestigious neighborhood, this home is close to top-rated schools, fine dining, and exclusive shopping venues. This property offers the perfect blend of elegance, comfort, and convenience."
   },
   {
     "propertyImage": "https://i.ibb.co/v12WyjC/6.jpg",
     "propertyLocation": "303 Cedar Street, Brockway",
     "priceRange": "$150,000 - $200,000",
     "verificationStatus": "Verified",
-    "name": "Kala Vai",
-    "email": "kala@dola.com"
+    "agentName": "Kala Vai",
+    "email": "kala@dola.com",
+    "propertyDescription": "This charming home on Cedar Street in Brockway is perfect for first-time homebuyers or those looking to downsize. The property features two bedrooms, one bathroom, and a cozy living room with a large picture window. The kitchen has been recently updated with new appliances, countertops, and cabinets, providing a functional and stylish space for cooking and dining. The backyard is fully fenced, offering privacy and security, and includes a patio area for outdoor dining and relaxation. The home is located in a quiet neighborhood with easy access to local parks, schools, and shopping centers. With its affordable price and desirable location, this home is a great opportunity for anyone looking to enjoy the Brockway community."
   }
 ]
