@@ -11,7 +11,8 @@ import {
   signOut,
 } from "firebase/auth";
 // import auth from "../../firebase/firebase.config";
-import auth from "../firebase/Firebase.config";
+// import auth from "../firebase/Firebase.config";
+import auth from "../firebase/firebase.config";
 
 const googProvider = new GoogleAuthProvider();
 const gitProvider = new GithubAuthProvider();
@@ -19,7 +20,7 @@ const twitProvider = new TwitterAuthProvider();
 
 export const ProjectContext = createContext(null);
 
-const ReactAuthProvider = ({ children }) => {
+const ReactProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loader, setLoader] = useState(true);
 
@@ -83,8 +84,8 @@ const ReactAuthProvider = ({ children }) => {
   );
 };
 
-export default ReactAuthProvider;
+export default ReactProvider;
 
-ReactAuthProvider.propTypes = {
+ReactProvider.propTypes = {
   children: PropTypes.node,
 };

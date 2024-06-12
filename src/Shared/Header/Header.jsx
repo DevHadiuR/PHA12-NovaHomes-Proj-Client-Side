@@ -10,8 +10,11 @@ import {
   IconButton,
 } from "@material-tailwind/react";
 import { Link, NavLink } from "react-router-dom";
+import useAuth from "../../hook/useAuth";
 
 const Header = () => {
+  const { user } = useAuth();
+
   const [openNav, setOpenNav] = React.useState(false);
 
   React.useEffect(() => {
@@ -87,28 +90,34 @@ const Header = () => {
           </div>
           <div className="">
             <div className="flex items-center gap-x-1">
-              <Link to="/login">
-                <Button
-                  variant="text"
-                  size="sm"
-                  className="hidden text-[#39474F]  text-base hover:bg-transparent lg:inline-block border-animate"
-                >
-                  <span>Log In</span>
-                </Button>
-              </Link>
-              <span className="text-black text-3xl mr-3 hidden lg:inline-block">
-                /
-              </span>
-              <Link to="/register">
-                <Button
-                  variant="gradient"
-                  size="sm"
-                  color="amber"
-                  className="hidden text-[#39474F] text-base lg:inline-block"
-                >
-                  <span>REGISTER</span>
-                </Button>
-              </Link>
+              {user || (
+                <>
+                  <Link to="/login">
+                    <Button
+                      variant="text"
+                      size="sm"
+                      className="hidden text-[#39474F]  text-base hover:bg-transparent lg:inline-block border-animate"
+                    >
+                      <span>Log In</span>
+                    </Button>
+                  </Link>
+                  <span className="text-black text-3xl mr-3 hidden lg:inline-block">
+                    /
+                  </span>
+                  <Link to="/register">
+                    <Button
+                      variant="gradient"
+                      size="sm"
+                      color="amber"
+                      className="hidden text-[#39474F] text-base lg:inline-block"
+                    >
+                      <span>REGISTER</span>
+                    </Button>
+                  </Link>
+                </>
+              )}
+
+              {user && <button>logout</button>}
             </div>
             <IconButton
               variant="text"
