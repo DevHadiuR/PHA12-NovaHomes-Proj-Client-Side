@@ -138,7 +138,7 @@ const Header = () => {
                         onClick={logout}
                         color="amber"
                         size="sm"
-                        className="flex justify-center items-center gap-2 text-sm md:text-base w-full hover:bg-[#39474F] hover:text-white"
+                        className="flex justify-center items-center gap-2 md:text-base w-full hover:bg-[#39474F] hover:text-white"
                       >
                         {" "}
                         <IoPower />
@@ -177,7 +177,7 @@ const Header = () => {
 
             <IconButton
               variant="text"
-              className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
+              className="ml-auto h-6 w-6 border-4 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
               ripple={false}
               onClick={() => setOpenNav(!openNav)}
             >
@@ -214,7 +214,7 @@ const Header = () => {
             </IconButton>
           </div>
         </div>
-        <MobileNav className="text-[#39474F]" open={openNav}>
+        <MobileNav className="text-[#39474F] mt-5" open={openNav}>
           {navList}
           <div className="flex items-center gap-x-1 ">
             {!user && (

@@ -1,4 +1,5 @@
 import { Button } from "@material-tailwind/react";
+import Comments from "./Comments";
 
 const PropertyDetails = () => {
   return (
@@ -14,7 +15,7 @@ const PropertyDetails = () => {
               $987,000
             </h1>
           </div>
-          <Button color="green" className="mt-3">
+          <Button color="green" className="mt-3 rounded-full">
             Verified
           </Button>
         </div>
@@ -29,7 +30,9 @@ const PropertyDetails = () => {
         </div>
 
         <div className="flex justify-end my-14">
-          <Button color="amber">Add TO Wishlist</Button>
+          <Button color="amber" size="sm" className="text-sm md:text-base">
+            Add TO Wishlist
+          </Button>
         </div>
 
         <div className="mt-5 lg:hidden">
@@ -41,13 +44,13 @@ const PropertyDetails = () => {
               $987,000
             </h1>
           </div>
-          <Button color="green" className="mt-3">
+          <Button color="green" className="mt-3 rounded-full">
             Verified
           </Button>
         </div>
 
         {/* description div */}
-        <div className="bg-white mt-10 ">
+        <div className="bg-white mt-10 py-5">
           <div className="w-[90%] mx-auto">
             <h1 className="text-xl font-semibold border-b border-gray-400 py-10">
               Description
@@ -73,7 +76,7 @@ const PropertyDetails = () => {
         </div>
 
         {/* details div */}
-        <div className="bg-white mt-10 ">
+        <div className="bg-white mt-10 pb-16">
           <div className="w-[90%] mx-auto">
             <h1 className="text-xl font-semibold border-b border-gray-400 py-10">
               Details
@@ -114,6 +117,11 @@ const PropertyDetails = () => {
               </div>
             </div>
           </div>
+        </div>
+
+        {/* users comments div */}
+        <div>
+          <Comments></Comments>
         </div>
       </div>
     </section>
