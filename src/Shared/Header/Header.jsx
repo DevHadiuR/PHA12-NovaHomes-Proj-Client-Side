@@ -68,7 +68,7 @@ const Header = () => {
       </Typography>
       <Typography as="li" className="p-1 font-semibold">
         <NavLink
-          to="/h"
+          to="/allProperties"
           className="transition-all  px-3 py-2  hover:bg-transparent border-animate"
           style={({ isActive }) => {
             return {

@@ -93,6 +93,15 @@ const PropertyDetails = () => {
                 </p>
                 <p className="flex justify-between items-center border-b-2  border-gray-300 pb-8 mb-8  gap-2">
                   <span className="text-xl font-semibold">
+                    Property Location
+                  </span>
+                  <span className="text-3xl">:</span>
+                  <span className="text-lg font-medium">
+                    Luxury Apartment Bay View
+                  </span>
+                </p>
+                <p className="flex justify-between items-center border-b-2  border-gray-300 pb-8 mb-8  gap-2">
+                  <span className="text-xl font-semibold">
                     Verification Status
                   </span>
                   <span className="text-3xl">:</span>
