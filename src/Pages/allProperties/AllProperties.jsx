@@ -1,19 +1,24 @@
 import DynamicTitleDesc from "../../Shared/dynamicTitleDesc/DynamicTitleDesc";
 import PropertyCard from "../../Shared/propertyCard/PropertyCard";
+import useAllProperties from "../../hook/useAllProperties";
 
 const AllProperties = () => {
+  const { allProperties } = useAllProperties();
+
   return (
     <section>
-      <div>
+      <div className="md:pt-1 md:pb-10 w-[98%] mx-auto">
         <DynamicTitleDesc
-          title={"Explore All Verified Properties"}
+          title={"Explore Verified Properties"}
           subTitle={
             "Welcome to our comprehensive property listings page. Discover a diverse range of verified properties with detailed descriptions, high-resolution images, and transparent pricing. Use our advanced search filters to find the perfect property tailored to your needs. Start your search today and find your ideal home or investment."
           }
         />
       </div>
-      <div>
-        <PropertyCard></PropertyCard>
+      <div className="w-[95%] md:w-full mx-auto">
+        {allProperties.map((property, idx) => (
+          <PropertyCard property={property} key={idx} idx={idx}></PropertyCard>
+        ))}
       </div>
     </section>
   );

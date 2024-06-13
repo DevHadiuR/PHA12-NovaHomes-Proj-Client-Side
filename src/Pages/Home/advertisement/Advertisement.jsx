@@ -1,4 +1,3 @@
-import { useQuery } from "@tanstack/react-query";
 import DynamicTitleDesc from "../../../Shared/dynamicTitleDesc/DynamicTitleDesc";
 import {
   Card,
@@ -8,17 +7,12 @@ import {
   Typography,
   Button,
 } from "@material-tailwind/react";
-import axios from "axios";
+
 import { Link } from "react-router-dom";
+import useAllProperties from "../../../hook/useAllProperties";
 
 const Advertisement = () => {
-  const { data: allProperties = [] } = useQuery({
-    queryKey: ["allProperties"],
-    queryFn: async () => {
-      const res = await axios.get("/properties.json");
-      return res.data;
-    },
-  });
+  const { allProperties } = useAllProperties();
 
   return (
     <div>

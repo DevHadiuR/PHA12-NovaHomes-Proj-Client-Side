@@ -1,15 +1,29 @@
 import { Button } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 
-const PropertyCard = () => {
+const PropertyCard = ({ property, idx }) => {
+  const {
+    propertyImage,
+    propertyLocation,
+    priceRange,
+    verificationStatus,
+    agentName,
+    propertyShortDescription,
+    propertyTitle,
+  } = property;
+
+  const imageFirst = idx % 2 === 0;
+
   return (
-    <div className="mt-8 text-[#39474F]">
+    <div className="mt-14 text-[#39474F]">
       <div className="container grid grid-cols-12 mx-auto bg-[#F1F3F4] rounded-xl">
         <div
-          className="bg-no-repeat bg-gray-500 md:bg-transparent  bg-cover  col-span-full md:col-span-5 row-span-full"
+          className={`bg-no-repeat bg-gray-500 md:bg-transparent bg-cover col-span-full md:col-span-5 row-span-full ${
+            imageFirst ? "md:order-first" : "md:order-last"
+          }`}
           style={{
-            //   backgroundImage: `url(${blog.img})`,
-            backgroundImage: `url(https://i.ibb.co/dc6DXV9/5.jpg)`,
+            backgroundImage: `url(${propertyImage})`,
+
             backgroundPosition: "center center",
             backgroundBlendMode: "multiply",
             backgroundSize: "cover",
@@ -21,18 +35,17 @@ const PropertyCard = () => {
               className={`px-3 py-2 mb-5 rounded-full
                    text-green-600 bg-green-100/90 `}
             >
-              VERIFIED
+              {verificationStatus}
             </span>
             <p className="text-lg text-white  md:text-xl font-bold md:text-[#39474F]">
-              $150,000 - $200,000
+              {priceRange}
             </p>
           </div>
           <h1 className="text-3xl text-white opacity-90 md:text-black md:opacity-100 font-semibold ">
-            Charming Home on Cedar Street
+            {propertyTitle}
           </h1>
           <p className="flex-1 pt-2 text-white opacity-95 md:text-black md:opacity-100">
-            Beautiful home with 3 bedrooms and 2 bathrooms in Ogdenville.
-            Features a cozy fireplace, modern kitchen, and spacious backyard.
+            {propertyShortDescription}
           </p>
           <a
             rel="noopener noreferrer"
@@ -60,11 +73,11 @@ const PropertyCard = () => {
 
           <p className="flex-1 pb-2 text-white opacity-90 md:text-black md:opacity-100">
             <span className="text-lg font-bold ">Location : </span>
-            <span className="text-base">303 Cedar Street, Brockway</span>
+            <span className="text-base">{propertyLocation}</span>
           </p>
           <p className="flex-1 pb-2 text-white opacity-90 md:text-black md:opacity-100">
             <span className="text-lg font-bold ">Agent Name : </span>
-            <span className="text-base">Kala Vai</span>
+            <span className="text-base">{agentName}</span>
           </p>
 
           <div className="flex items-center gap-5 pt-4">
