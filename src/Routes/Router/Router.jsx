@@ -6,7 +6,8 @@ import Login from "../../Pages/login/Login";
 import PropertyDetails from "../../Pages/propertyDetails/PropertyDetails";
 import AllProperties from "../../Pages/allProperties/AllProperties";
 import Dashboard from "../../Pages/dashboard/dashboard/Dashboard";
-import UserProfile from "../../Pages/dashboard/userProfile/UserProfile";
+
+import Profile from "../../Shared/profile/Profile";
 
 export const router = createBrowserRouter([
   {
@@ -41,8 +42,8 @@ export const router = createBrowserRouter([
     children: [
       // User Routes
       {
-        path: "userProfile",
-        element: <UserProfile></UserProfile>,
+        path: "profile",
+        element: <Profile></Profile>,
       },
     ],
   },

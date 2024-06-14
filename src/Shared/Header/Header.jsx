@@ -83,7 +83,7 @@ const Header = () => {
       </Typography>
       <Typography as="li" className="p-1 font-semibold ">
         <NavLink
-          to="/dashboard/userProfile"
+          to="/dashboard/profile"
           className="transition-all  px-3 py-2  hover:bg-transparent border-animate"
           style={({ isActive }) => {
             return {

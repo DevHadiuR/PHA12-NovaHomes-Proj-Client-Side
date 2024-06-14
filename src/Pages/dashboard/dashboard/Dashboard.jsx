@@ -14,13 +14,13 @@ const Dashboard = () => {
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
 
-      <div className="drawer-content flex flex-row-reverse justify-center bg-[#f6f6f6e3]">
+      <div className="drawer-content  bg-[#f6f6f6e3]">
         {/* Page content here */}
 
         <Outlet></Outlet>
       </div>
       {/* drawer button icon */}
-      <div className="ml-2 mt-2">
+      <div className="ml-2 mt-2 ">
         <label htmlFor="my-drawer-2" className="drawer-button lg:hidden">
           <HiMenuAlt2 className="text-4xl font-bold" />
         </label>
@@ -114,7 +114,7 @@ const Dashboard = () => {
 
           <>
             <li>
-              <NavLink to="/dashboard/userProfile">
+              <NavLink to="/dashboard/profile">
                 <CgProfile className="text-lg md:text-2xl" /> My Profile
               </NavLink>
             </li>
@@ -139,7 +139,7 @@ const Dashboard = () => {
           {/* Agent Route */}
           <>
             <li>
-              <NavLink to="/dashboard/agentProfile">
+              <NavLink to="/dashboard/profile">
                 <CgProfile className="text-lg md:text-2xl" /> Agent Profile
               </NavLink>
             </li>
@@ -170,7 +170,7 @@ const Dashboard = () => {
           {/* Admin Route */}
           <>
             <li>
-              <NavLink to="/dashboard/adminProfile">
+              <NavLink to="/dashboard/profile">
                 <CgProfile className="text-lg md:text-2xl" /> Admin Profile
               </NavLink>
             </li>
