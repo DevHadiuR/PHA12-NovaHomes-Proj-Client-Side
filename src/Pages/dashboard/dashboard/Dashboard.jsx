@@ -1,10 +1,13 @@
+import { Typography } from "@material-tailwind/react";
 import { CgProfile } from "react-icons/cg";
-import { FaList } from "react-icons/fa";
-import { GiFamilyHouse } from "react-icons/gi";
-import { HiMenuAlt3 } from "react-icons/hi";
+import { FaHouseUser, FaList, FaUsers } from "react-icons/fa";
+import { GiFamilyHouse, GiHouse } from "react-icons/gi";
+import { HiMenuAlt2 } from "react-icons/hi";
 import { IoIosHome } from "react-icons/io";
 import { MdOutlineReviews } from "react-icons/md";
 import { NavLink, Outlet } from "react-router-dom";
+import logo from "../../../assets/logoWhite.jpg";
+import { TbBrandCashapp } from "react-icons/tb";
 
 const Dashboard = () => {
   return (
@@ -13,23 +16,33 @@ const Dashboard = () => {
 
       <div className="drawer-content flex flex-row-reverse justify-center bg-[#f6f6f6e3]">
         {/* Page content here */}
-        <label htmlFor="my-drawer-2" className=" drawer-button lg:hidden mt-3">
-          <HiMenuAlt3 className="text-4xl font-bold" />
-        </label>
+
         <Outlet></Outlet>
       </div>
-      <div className="drawer-side">
+      {/* drawer button icon */}
+      <div className="ml-2 mt-2">
+        <label htmlFor="my-drawer-2" className="drawer-button lg:hidden">
+          <HiMenuAlt2 className="text-4xl font-bold" />
+        </label>
+      </div>
+      <div className="drawer-side ">
         <label
           htmlFor="my-drawer-2"
           aria-label="close sidebar"
           className="drawer-overlay"
         ></label>
-        <ul className="menu p-4 w-auto  md:w-80 min-h-full text-base-content text-lg font-semibold gap-1 bg-[#D1A054]">
-          <li className="mb-6">
-            <h1 className="text-3xl font-bold">
-              Bistro Boss <br />
-              Restaurant
-            </h1>
+        <ul className="menu p-4 w-auto  md:w-80 min-h-full text-lg font-semibold gap-1 bg-[#39474F] text-white">
+          <li className="mb-2">
+            <Typography
+              as="a"
+              href="/"
+              className="mr-4 w-24 md:w-36 cursor-pointer py-1.5 font-medium"
+            >
+              <img src={logo} alt="Website-log" />
+            </Typography>
+          </li>
+          <li className="text-white text-lg md:text-2xl font-semibold mb-6">
+            NovaHome | Agency
           </li>
 
           {/* Sidebar content here . It will be conditional . */}
@@ -97,36 +110,96 @@ const Dashboard = () => {
             </>
           )} */}
 
+          {/* user route */}
+
           <>
             <li>
               <NavLink to="/dashboard/userProfile">
-                <CgProfile className="text-2xl" /> My Profile
+                <CgProfile className="text-lg md:text-2xl" /> My Profile
               </NavLink>
             </li>
             <li>
               <NavLink to="/dashboard/userWishlist">
-                <FaList className="text-2xl" /> Wishlist
+                <FaList className="text-lg md:text-2xl" /> Wishlist
               </NavLink>
             </li>
             <li>
               <NavLink to="/dashboard/userProperty">
-                <GiFamilyHouse className="text-2xl" /> Property Bought
+                <GiFamilyHouse className="text-lg md:text-2xl" /> Property
+                Bought
               </NavLink>
             </li>
 
             <li>
               <NavLink to="/dashboard/userReview">
-                <MdOutlineReviews className="text-2xl" /> My Reviews
+                <MdOutlineReviews className="text-lg md:text-2xl" /> My Reviews
+              </NavLink>
+            </li>
+          </>
+          {/* Agent Route */}
+          <>
+            <li>
+              <NavLink to="/dashboard/agentProfile">
+                <CgProfile className="text-lg md:text-2xl" /> Agent Profile
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/dashboard/agentAddProperty">
+                <GiFamilyHouse className="text-lg md:text-2xl" /> Add Property
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/dashboard/agentMyAddedProperty">
+                <GiHouse className="text-lg md:text-2xl" /> My Added Property
+              </NavLink>
+            </li>
+
+            <li>
+              <NavLink to="/dashboard/agentMySoldProperty">
+                <TbBrandCashapp className="text-lg md:text-2xl" /> My Sold
+                Property
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/dashboard/agentRequestedProperty">
+                <FaHouseUser className="text-lg md:text-2xl" /> Requested
+                Properties
+              </NavLink>
+            </li>
+          </>
+          {/* Admin Route */}
+          <>
+            <li>
+              <NavLink to="/dashboard/adminProfile">
+                <CgProfile className="text-lg md:text-2xl" /> Admin Profile
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/dashboard/adminManageProperty">
+                <GiFamilyHouse className="text-lg md:text-2xl" /> Manage
+                Properties
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/dashboard/adminManageUsers">
+                <FaUsers className="text-lg md:text-2xl" /> Manage Users
+              </NavLink>
+            </li>
+
+            <li>
+              <NavLink to="/dashboard/adminManageReviews">
+                <MdOutlineReviews className="text-lg md:text-2xl" /> Manage
+                Reviews
               </NavLink>
             </li>
           </>
 
           {/* shared link are below here */}
 
-          <div className="divider divider-primary"></div>
+          <div className="divider divider-warning"></div>
           <li>
             <NavLink to="/">
-              <IoIosHome className="text-2xl" />
+              <IoIosHome className="text-lg md:text-2xl" />
               Home
             </NavLink>
           </li>
