@@ -3,24 +3,32 @@
     "reviewer_name": "Sarah Johnson",
     "reviewer_image": "https://example.com/images/sarah.jpg",
     "review_description": "I recently purchased a beautiful home through this platform, and I couldn't be happier! The process was smooth, and the agent was incredibly helpful. Highly recommend!",
-    "property_title": "Cozy Family Home in Suburban Area"
+    "property_title": "Cozy Family Home in Suburban Area",
+    "agent_name": "kala miah",
+    "review_time": "34 34 34"
   },
   {
     "reviewer_name": "Mark Thompson",
     "reviewer_image": "https://example.com/images/mark.jpg",
     "review_description": "As an agent, I've had great success listing properties here. The interface is user-friendly, and I've been able to sell multiple properties quickly. Fantastic service!",
-    "property_title": "Modern Downtown Apartment"
+    "property_title": "Modern Downtown Apartment",
+    "agent_name": "kala miah",
+    "review_time": "34 34 34"
   },
   {
     "reviewer_name": "Emily Clark",
     "reviewer_image": "https://example.com/images/emily.jpg",
     "review_description": "The wishlist feature made it easy for me to keep track of my favorite properties. I eventually found my dream home and the entire buying process was seamless. Great experience!",
-    "property_title": "Spacious Countryside Villa"
+    "property_title": "Spacious Countryside Villa",
+    "agent_name": "kala miah",
+    "review_time": "34 34 34"
   },
   {
     "reviewer_name": "John Doe",
     "reviewer_image": "https://example.com/images/john.jpg",
     "review_description": "The platform offers a great selection of properties and the customer service is top-notch. I found a great apartment that fits all my needs.",
-    "property_title": "Luxury City Center Condo"
+    "property_title": "Luxury City Center Condo",
+    "agent_name": "kala miah",
+    "review_time": "34 34 34"
   }
 ]

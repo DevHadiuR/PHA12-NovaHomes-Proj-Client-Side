@@ -10,6 +10,7 @@ import Dashboard from "../../Pages/dashboard/dashboard/Dashboard";
 import Profile from "../../Shared/profile/Profile";
 import UserWishlist from "../../Pages/dashboard/userWishlist/UserWishlist";
 import UserPropertyBought from "../../Pages/dashboard/userPropertyBought/UserPropertyBought";
+import UserReview from "../../Pages/dashboard/userReview/UserReview";
 
 export const router = createBrowserRouter([
   {
@@ -54,6 +55,10 @@ export const router = createBrowserRouter([
       {
         path: "userPropertyBought",
         element: <UserPropertyBought></UserPropertyBought>,
+      },
+      {
+        path: "userReview",
+        element: <UserReview></UserReview>,
       },
     ],
   },
