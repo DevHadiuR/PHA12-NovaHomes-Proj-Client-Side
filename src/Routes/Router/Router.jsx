@@ -14,6 +14,7 @@ import UserReview from "../../Pages/dashboard/userReview/UserReview";
 import AgentAddProperty from "../../Pages/dashboard/agentAddProperty/AgentAddProperty";
 import AgentMyAddedProperty from "../../Pages/dashboard/agentMyAddedProperty/AgentMyAddedProperty";
 import AgentMySoldProperty from "../../Pages/dashboard/agentMySoldProperty/AgentMySoldProperty";
+import AgentRequestedProperty from "../../Pages/dashboard/agentRequestedProperty/AgentRequestedProperty";
 
 export const router = createBrowserRouter([
   {
@@ -75,6 +76,10 @@ export const router = createBrowserRouter([
       {
         path: "agentMySoldProperty",
         element: <AgentMySoldProperty></AgentMySoldProperty>,
+      },
+      {
+        path: "agentRequestedProperty",
+        element: <AgentRequestedProperty></AgentRequestedProperty>,
       },
     ],
   },
