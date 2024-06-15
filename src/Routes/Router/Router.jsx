@@ -13,6 +13,7 @@ import UserPropertyBought from "../../Pages/dashboard/userPropertyBought/UserPro
 import UserReview from "../../Pages/dashboard/userReview/UserReview";
 import AgentAddProperty from "../../Pages/dashboard/agentAddProperty/AgentAddProperty";
 import AgentMyAddedProperty from "../../Pages/dashboard/agentMyAddedProperty/AgentMyAddedProperty";
+import AgentMySoldProperty from "../../Pages/dashboard/agentMySoldProperty/AgentMySoldProperty";
 
 export const router = createBrowserRouter([
   {
@@ -70,6 +71,10 @@ export const router = createBrowserRouter([
       {
         path: "agentMyAddedProperty",
         element: <AgentMyAddedProperty></AgentMyAddedProperty>,
+      },
+      {
+        path: "agentMySoldProperty",
+        element: <AgentMySoldProperty></AgentMySoldProperty>,
       },
     ],
   },
