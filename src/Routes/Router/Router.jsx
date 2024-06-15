@@ -17,6 +17,7 @@ import AgentMySoldProperty from "../../Pages/dashboard/agentMySoldProperty/Agent
 import AgentRequestedProperty from "../../Pages/dashboard/agentRequestedProperty/AgentRequestedProperty";
 import AdminManageProperty from "../../Pages/dashboard/adminManageProperty/AdminManageProperty";
 import AdminManageUsers from "../../Pages/dashboard/adminManageUsers/AdminManageUsers";
+import AdminManageReviews from "../../Pages/dashboard/adminManageReviews/AdminManageReviews";
 
 export const router = createBrowserRouter([
   {
@@ -90,6 +91,10 @@ export const router = createBrowserRouter([
       {
         path: "adminManageUsers",
         element: <AdminManageUsers></AdminManageUsers>,
+      },
+      {
+        path: "adminManageReviews",
+        element: <AdminManageReviews></AdminManageReviews>,
       },
     ],
   },
