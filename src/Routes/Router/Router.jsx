@@ -9,6 +9,7 @@ import Dashboard from "../../Pages/dashboard/dashboard/Dashboard";
 
 import Profile from "../../Shared/profile/Profile";
 import UserWishlist from "../../Pages/dashboard/userWishlist/UserWishlist";
+import UserPropertyBought from "../../Pages/dashboard/userPropertyBought/UserPropertyBought";
 
 export const router = createBrowserRouter([
   {
@@ -49,6 +50,10 @@ export const router = createBrowserRouter([
       {
         path: "userWishlist",
         element: <UserWishlist></UserWishlist>,
+      },
+      {
+        path: "userPropertyBought",
+        element: <UserPropertyBought></UserPropertyBought>,
       },
     ],
   },

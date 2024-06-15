@@ -124,7 +124,7 @@ const Dashboard = () => {
               </NavLink>
             </li>
             <li>
-              <NavLink to="/dashboard/userProperty">
+              <NavLink to="/dashboard/userPropertyBought">
                 <GiFamilyHouse className="text-lg md:text-2xl" /> Property
                 Bought
               </NavLink>
