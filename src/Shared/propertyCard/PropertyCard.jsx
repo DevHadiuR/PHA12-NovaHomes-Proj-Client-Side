@@ -1,7 +1,14 @@
 import { Button } from "@material-tailwind/react";
-import { Link } from "react-router-dom";
+import { RiDeleteBin5Line } from "react-icons/ri";
+import { Link, useLocation } from "react-router-dom";
 
 const PropertyCard = ({ property, idx }) => {
+  const locaiton = useLocation();
+
+  const wishlistLocaiton = locaiton.pathname.includes(
+    "/dashboard/userWishlist"
+  );
+
   const {
     propertyImage,
     propertyLocation,
@@ -75,18 +82,86 @@ const PropertyCard = ({ property, idx }) => {
             <span className="text-lg font-bold ">Location : </span>
             <span className="text-base">{propertyLocation}</span>
           </p>
+          {/* agent image */}
+          <p className="flex-1 pb-2 text-white opacity-90 md:text-black md:opacity-100 flex items-center gap-2">
+            <span className="text-lg font-bold ">Agent Image : </span>
+            <div className="avatar">
+              <div className="w-12 md:w-14 mask mask-squircle">
+                <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+              </div>
+            </div>
+          </p>
+
           <p className="flex-1 pb-2 text-white opacity-90 md:text-black md:opacity-100">
             <span className="text-lg font-bold ">Agent Name : </span>
             <span className="text-base">{agentName}</span>
           </p>
 
-          <div className="flex items-center gap-5 pt-4">
-            <Link to="/propertyDetails">
-              <Button outline color="amber">
-                Details
-              </Button>
-            </Link>
-          </div>
+          {!wishlistLocaiton && (
+            <div className="flex items-center gap-5 pt-4">
+              <Link to="/propertyDetails">
+                <Button outline color="amber">
+                  Details
+                </Button>
+              </Link>
+            </div>
+          )}
+
+          {wishlistLocaiton && (
+            <div className="mt-4 flex justify-between flex-col gap-3 md:flex-row">
+              <a className="relative inline-flex items-center justify-start md:py-3 md:pl-4 md:pr-12 py-2 pl-2 w-full md:w-auto overflow-hidden font-semibold text-indigo-600 transition-all duration-150 ease-in-out rounded hover:pl-10 hover:pr-6 bg-gray-50 group">
+                <span className="absolute bottom-0 left-0 w-full h-1 transition-all duration-150 ease-in-out bg-[#39474F] group-hover:h-full"></span>
+                <span className="absolute right-0 pr-4 duration-200 ease-out group-hover:translate-x-12">
+                  <svg
+                    className="w-5 h-5 text-green-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M14 5l7 7m0 0l-7 7m7-7H3"
+                    ></path>
+                  </svg>
+                </span>
+                <span className="absolute left-0 pl-2.5 -translate-x-12 group-hover:translate-x-0 ease-out duration-200">
+                  <svg
+                    className="w-5 h-5 text-green-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M14 5l7 7m0 0l-7 7m7-7H3"
+                    ></path>
+                  </svg>
+                </span>
+                <span className="relative w-full text-left transition-colors duration-200 ease-in-out group-hover:text-white">
+                  Make An Offer
+                </span>
+              </a>
+
+              <a
+                href="#_"
+                className="relative rounded  md:px-8 md:py-4 px-3 py-2 overflow-hidden group bg-amber-500  hover:bg-gradient-to-r hover:from-red-500 hover:to-red-400 text-white hover:ring-2 hover:ring-offset-2 hover:ring-red-400 transition-all ease-out duration-300"
+              >
+                <span className="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
+                <span className="relative text-lg font-bold flex items-center gap-3 justify-between">
+                  <span>Remove </span>
+                  <span>
+                    <RiDeleteBin5Line />
+                  </span>
+                </span>
+              </a>
+            </div>
+          )}
         </div>
       </div>
     </div>

@@ -8,6 +8,7 @@ import AllProperties from "../../Pages/allProperties/AllProperties";
 import Dashboard from "../../Pages/dashboard/dashboard/Dashboard";
 
 import Profile from "../../Shared/profile/Profile";
+import UserWishlist from "../../Pages/dashboard/userWishlist/UserWishlist";
 
 export const router = createBrowserRouter([
   {
@@ -44,6 +45,10 @@ export const router = createBrowserRouter([
       {
         path: "profile",
         element: <Profile></Profile>,
+      },
+      {
+        path: "userWishlist",
+        element: <UserWishlist></UserWishlist>,
       },
     ],
   },
