@@ -9,12 +9,14 @@ import "react-toastify/dist/ReactToastify.css";
 import Swal from "sweetalert2";
 import "sweetalert2/src/sweetalert2.scss";
 import useAuth from "../../hook/useAuth";
-import { updateProfile } from "firebase/auth";
+import useAxiosPublic from "../../hook/useAxiosPublic";
+// import { updateProfile } from "firebase/auth";
 
 const Register = () => {
   const [showPass, setShowPass] = useState(false);
-  const { createUser, setUser } = useAuth();
+  const { createUser, setUser, updateUser } = useAuth();
   const navigate = useNavigate();
+  const axiosPublic = useAxiosPublic();
 
   const {
     register,
@@ -42,8 +44,8 @@ const Register = () => {
   };
 
   const onSubmit = (data) => {
-    console.log(data);
-    const { name, email, password, photo } = data;
+    // console.log(data);
+    const { name, email, password, photo } = data || {};
 
     if (!/@.*\.com$/.test(email)) {
       handleError("Email must contain with '.com' at the end!");
@@ -69,23 +71,52 @@ const Register = () => {
       .then((res) => {
         const user = res.user;
         console.log(user);
-        Swal.fire({
-          title: "Congratulation!",
-          text: "You Have Successfully Registered!",
-          icon: "success",
-        });
-        updateProfile(user, {
-          displayName: name,
-          photoURL: photo,
-        });
 
-        setUser({
-          ...user,
-          photoURL: photo,
-          displayName: name,
-        });
+        updateUser(name, photo)
+          .then((result) => {
+            console.log(result);
+            setUser({
+              ...user,
+              photoURL: photo,
+              displayName: name,
+            });
+            const userInfo = {
+              name: name,
+              email: email,
+              photo: photo,
+            };
 
-        navigate("/");
+            axiosPublic
+              .post("/allUsers", userInfo)
+              .then((userRes) => {
+                const data = userRes.data;
+                console.log(data);
+                if (data.message) {
+                  Swal.fire({
+                    icon: "info",
+                    title: data.message,
+                  });
+                  navigate("/login");
+                }
+
+                if (data.insertedId) {
+                  navigate("/");
+                  Swal.fire({
+                    title: "Congratulation!",
+                    text: "You Have Successfully Registered!",
+                    icon: "success",
+                  });
+                }
+              })
+              .catch((err) => {
+                Swal.fire({
+                  icon: "error",
+                  title: "Sorry...",
+                  text: err,
+                });
+              });
+          })
+          .catch((err) => console.log(err));
 
         reset();
       })

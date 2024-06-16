@@ -9,6 +9,7 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  updateProfile,
 } from "firebase/auth";
 // import auth from "../../firebase/firebase.config";
 // import auth from "../firebase/Firebase.config";
@@ -32,6 +33,14 @@ const ReactProvider = ({ children }) => {
   const loginUser = (email, password) => {
     setLoader(true);
     return signInWithEmailAndPassword(auth, email, password);
+  };
+
+  // update user
+  const updateUser = (name, photo) => {
+    return updateProfile(auth.currentUser, {
+      displayName: name,
+      photoURL: photo,
+    });
   };
 
   useEffect(() => {
@@ -75,7 +84,8 @@ const ReactProvider = ({ children }) => {
     twitterProvider,
     loader,
     setUser,
-  };
+    updateUser,
+  }; 
 
   return (
     <ProjectContext.Provider value={projectInfo}>

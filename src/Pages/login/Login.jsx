@@ -8,12 +8,14 @@ import { IoEye } from "react-icons/io5";
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hook/useAuth";
 import Swal from "sweetalert2";
+import useAxiosPublic from "../../hook/useAxiosPublic";
 
 const Login = () => {
   const [showPass, setShowPass] = useState(false);
   const navigate = useNavigate();
   const { loginUser, googleProvider, gitHubProvider, twitterProvider } =
     useAuth();
+  const axiosPublic = useAxiosPublic();
 
   // use hook form
   const {
@@ -58,13 +60,27 @@ const Login = () => {
       .then((result) => {
         const user = result.user;
         console.log(user);
-        Swal.fire({
-          title: "Hurray !!!",
-          text: "You Have Successfully Loged In!",
-          icon: "success",
-        });
 
-        navigate("/");
+        const userInfo = {
+          name: user.displayName,
+          email: user.email,
+          photo: user.photoURL,
+        };
+
+        axiosPublic
+          .post("/allUsers", userInfo)
+          .then((res) => {
+            console.log(res.data);
+
+            Swal.fire({
+              title: "Hurray !!!",
+              text: "You Have Successfully Loged In!",
+              icon: "success",
+            });
+
+            navigate("/");
+          })
+          .catch((err) => console.log(err));
       })
       .catch(() => {
         Swal.fire({
@@ -80,13 +96,26 @@ const Login = () => {
       .then((result) => {
         const user = result.user;
         console.log(user);
-        Swal.fire({
-          title: "Hurray !!!",
-          text: "You Have Successfully Loged In!",
-          icon: "success",
-        });
+        const userInfo = {
+          name: user.displayName,
+          email: user.email,
+          photo: user.photoURL,
+        };
 
-        navigate("/");
+        axiosPublic
+          .post("/allUsers", userInfo)
+          .then((res) => {
+            console.log(res.data);
+
+            Swal.fire({
+              title: "Hurray !!!",
+              text: "You Have Successfully Loged In!",
+              icon: "success",
+            });
+
+            navigate("/");
+          })
+          .catch((err) => console.log(err));
       })
       .catch(() => {
         Swal.fire({
@@ -102,13 +131,26 @@ const Login = () => {
       .then((result) => {
         const user = result.user;
         console.log(user);
-        Swal.fire({
-          title: "Hurray !!!",
-          text: "You Have Successfully Loged In!",
-          icon: "success",
-        });
+        const userInfo = {
+          name: user.displayName,
+          email: user.email,
+          photo: user.photoURL,
+        };
 
-        navigate("/");
+        axiosPublic
+          .post("/allUsers", userInfo)
+          .then((res) => {
+            console.log(res.data);
+
+            Swal.fire({
+              title: "Hurray !!!",
+              text: "You Have Successfully Loged In!",
+              icon: "success",
+            });
+
+            navigate("/");
+          })
+          .catch((err) => console.log(err));
       })
       .catch(() => {
         Swal.fire({
