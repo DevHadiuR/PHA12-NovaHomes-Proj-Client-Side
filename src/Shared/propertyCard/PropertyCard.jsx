@@ -4,7 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 
 const PropertyCard = ({ property, idx }) => {
   const locaiton = useLocation();
-  console.log(location);
+ 
 
   const wishlistLocaiton = locaiton.pathname.includes(
     "/dashboard/userWishlist"

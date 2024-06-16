@@ -1,21 +1,79 @@
 import { Button, Input } from "@material-tailwind/react";
 import { useForm } from "react-hook-form";
 import useAuth from "../../../hook/useAuth";
+import useAxiosPublic from "../../../hook/useAxiosPublic";
+import useAxiosSecure from "../../../hook/useAxiosSecure";
+import Swal from "sweetalert2";
 // import DynamicTitleDesc from "../../../Shared/dynamicTitleDesc/DynamicTitleDesc";
+const imgBB_api =
+  "https://api.imgbb.com/1/upload?key=667d80a3b99faf5238f607dc5cc13485";
 
 const AgentAddProperty = () => {
   const { user } = useAuth();
   const { displayName, email } = user || {};
+  const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
 
   const {
     register,
     handleSubmit,
-    // reset,
+    reset,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log(data);
+    const imgFile = {
+      image: data.propertyImage[0],
+    };
+    const res = await axiosPublic.post(imgBB_api, imgFile, {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    });
+
+    console.log(res);
+
+    const propertyItem = {
+      propertyTitle: data.propertyTitle,
+      propertyLocation: data.propertyLocation,
+      propertyImage: res.data.data.display_url,
+      propertyDescription: data.propertyDescription,
+      propertyShortDescription: data.propertyShortDescription,
+      agentName: data.agentName,
+      agentEmail: data.agentEmail,
+      minPrice: parseFloat(data.minPrice),
+      maxPrice: parseFloat(data.maxPrice),
+    };
+
+    if (res.data.data.display_url) {
+      const propertyRes = await axiosSecure.post(
+        "/allProperties",
+        propertyItem
+      );
+      console.log(propertyRes.data);
+
+      if (propertyRes.data.insertedId) {
+        Swal.fire({
+          title: "Your Property Successfully added!",
+          showClass: {
+            popup: `
+              animate__animated
+              animate__fadeInUp
+              animate__faster
+            `,
+          },
+          hideClass: {
+            popup: `
+              animate__animated
+              animate__fadeOutDown
+              animate__faster
+            `,
+          },
+        });
+        reset();
+      }
+    }
   };
 
   return (
@@ -67,7 +125,7 @@ const AgentAddProperty = () => {
                   variant="standard"
                   placeholder="Enter Your Property Image"
                   name="propertyImage"
-                  type="url"
+                  type="file"
                   size="md"
                   color="orange"
                   {...register("propertyImage", { required: true })}
@@ -93,6 +151,46 @@ const AgentAddProperty = () => {
                   className="py-3 text-xl"
                 />
                 {errors.propertyLocation && (
+                  <span className="text-red-600">This field is required</span>
+                )}
+              </div>
+              {/* Property Short Description input */}
+              <div className="mt-5 form-control">
+                <label>
+                  Property Short Description{" "}
+                  <span className="text-red-400">*</span>{" "}
+                </label>
+                <Input
+                  variant="standard"
+                  placeholder="Enter Your Property Short Description"
+                  name="propertyShortDescription"
+                  type="text"
+                  size="md"
+                  color="orange"
+                  {...register("propertyShortDescription", { required: true })}
+                  className="py-3 text-xl"
+                />
+                {errors.propertyShortDescription && (
+                  <span className="text-red-600">This field is required</span>
+                )}
+              </div>
+              {/* Property Long Description input */}
+              <div className="mt-5 form-control">
+                <label>
+                  Property Long Description{" "}
+                  <span className="text-red-400">*</span>{" "}
+                </label>
+                <Input
+                  variant="standard"
+                  placeholder="Enter Your Property Long Description"
+                  name="propertyDescription"
+                  type="text"
+                  size="md"
+                  color="orange"
+                  {...register("propertyDescription", { required: true })}
+                  className="py-3 text-xl"
+                />
+                {errors.propertyDescription && (
                   <span className="text-red-600">This field is required</span>
                 )}
               </div>

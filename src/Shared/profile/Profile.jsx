@@ -52,7 +52,7 @@ const Profile = () => {
 
         {runningUserRole !== undefined && (
           <div className="bg-accent text-white text-2xl font-bold px-8 py-2 rounded-full">
-            <span>Role :</span>
+            <span>Role : </span>
             <span>{runningUserRole}</span>
           </div>
         )}
