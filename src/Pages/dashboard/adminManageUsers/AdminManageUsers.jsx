@@ -6,6 +6,7 @@ import { RiUserAddFill } from "react-icons/ri";
 import { FaExclamationCircle } from "react-icons/fa";
 import useAxiosSecure from "../../../hook/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
+import Swal from "sweetalert2";
 const TABLE_HEAD = [
   "User Name",
   "User Email",
@@ -18,7 +19,7 @@ const TABLE_HEAD = [
 const AdminManageUsers = () => {
   const axiosSecure = useAxiosSecure();
 
-  const { data: allUsers = [] } = useQuery({
+  const { data: allUsers = [], refetch } = useQuery({
     queryKey: ["allUsers"],
     queryFn: async () => {
       const res = await axiosSecure.get("/allUsers");
@@ -26,7 +27,64 @@ const AdminManageUsers = () => {
     },
   });
 
-  console.log(allUsers);
+  //   Handle Make Admin from here
+  const handleMakeAdmin = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You want to make this user Admin?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Make him Admin!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.patch(`/allUsers/admin/${id}`).then((res) => {
+          const result = res.data;
+          if (result.modifiedCount) {
+            refetch();
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "This user is now an Admin!",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          }
+        });
+      }
+    });
+  };
+
+//   Handle Make Agent From here
+const handleMakeAgent = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You want to make this user Agent?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Make him Agent!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.patch(`/allUsers/admin/${id}`).then((res) => {
+          const result = res.data;
+          if (result.modifiedCount) {
+            refetch();
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "This user is now an Admin!",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          }
+        });
+      }
+    });
+  };
+
 
   return (
     <section>
@@ -60,7 +118,7 @@ const AdminManageUsers = () => {
               </tr>
             </thead>
             <tbody>
-              {allUsers.map(({ name, email }, index) => {
+              {allUsers.map(({ name, email, _id, role }, index) => {
                 const isLast = index === allUsers.length - 1;
                 const classes = isLast
                   ? "p-4"
@@ -88,22 +146,45 @@ const AdminManageUsers = () => {
                     </td>
 
                     <td className={classes}>
-                      <Typography color="blue" className="font-normal">
-                        <MdAdminPanelSettings className="text-3xl md:text-4xl hover:scale-125 transition-all cursor-pointer" />
+                      {role === "admin" ? (
+                        <p className="text-base font-bold text-blue-600 bg-blue-100/90 text-center rounded-full">
+                          ADMIN
+                        </p>
+                      ) : (
+                        <Typography
+                          color="blue"
+                          className="font-normal flex justify-center"
+                        >
+                          <MdAdminPanelSettings
+                            onClick={() => handleMakeAdmin(_id)}
+                            className="text-3xl md:text-4xl hover:scale-125 transition-all cursor-pointer "
+                          />
+                        </Typography>
+                      )}
+                    </td>
+                    <td className={classes}>
+                      <Typography
+                        color="green"
+                        className="font-normal flex justify-center"
+                      >
+                        <RiUserAddFill
+                        onClick={() => handleMakeAgent(_id)}
+                        className="text-3xl md:text-4xl hover:scale-125 transition-all cursor-pointer" />
                       </Typography>
                     </td>
                     <td className={classes}>
-                      <Typography color="green" className="font-normal">
-                        <RiUserAddFill className="text-3xl md:text-4xl hover:scale-125 transition-all cursor-pointer" />
-                      </Typography>
-                    </td>
-                    <td className={classes}>
-                      <Typography color="red" className="font-normal">
+                      <Typography
+                        color="red"
+                        className="font-normal flex justify-center"
+                      >
                         <FaExclamationCircle className="text-3xl md:text-4xl hover:scale-125 transition-all cursor-pointer" />
                       </Typography>
                     </td>
                     <td className={classes}>
-                      <Typography color="red" className="font-normal">
+                      <Typography
+                        color="red"
+                        className="font-normal flex justify-center"
+                      >
                         <MdDeleteForever className="text-4xl md:text-4xl hover:scale-125 transition-all cursor-pointer" />
                       </Typography>
                     </td>

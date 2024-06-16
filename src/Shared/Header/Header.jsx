@@ -41,8 +41,8 @@ const Header = () => {
       if (result.isConfirmed) {
         logoutUser();
         Swal.fire({
-          title: "Hmmmmmmmm!!",
-          text: "Sir You Have Successfully Sign Out!",
+          title: "Sir You Have Successfully Sign Out!",
+
           icon: "success",
         });
       }
