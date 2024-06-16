@@ -84,6 +84,34 @@ const AdminManageUsers = () => {
       }
     });
   };
+  //   Handle Mark Farud users From here
+  const handleMakeFraud = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You want to mark this user as Fraud?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Mark him Fraud!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.patch(`/allUsers/fraud/${id}`).then((res) => {
+          const result = res.data;
+          if (result.modifiedCount) {
+            refetch();
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "This user is now mark as Fraud!",
+              showConfirmButton: false,
+              timer: 2000,
+            });
+          }
+        });
+      }
+    });
+  };
 
   return (
     <section>
@@ -145,46 +173,81 @@ const AdminManageUsers = () => {
                     </td>
 
                     <td className={classes}>
-                      {role === "admin" ? (
-                        <p className="text-base font-bold text-blue-600 bg-blue-100/90 text-center rounded-full">
-                          ADMIN
+                      {role === "fraud" ? (
+                        <p className="text-base font-bold text-red-600 bg-red-100/90 text-center rounded-full">
+                          FRAUD
                         </p>
                       ) : (
-                        <Typography
-                          color="blue"
-                          className="font-normal flex justify-center"
-                        >
-                          <MdAdminPanelSettings
-                            onClick={() => handleMakeAdmin(_id)}
-                            className="text-3xl md:text-4xl hover:scale-125 transition-all cursor-pointer "
-                          />
-                        </Typography>
+                        <>
+                          {role === "admin" ? (
+                            <p className="text-base font-bold text-blue-600 bg-blue-100/90 text-center rounded-full">
+                              ADMIN
+                            </p>
+                          ) : (
+                            <Typography
+                              color="blue"
+                              className="font-normal flex justify-center"
+                            >
+                              <MdAdminPanelSettings
+                                onClick={() => handleMakeAdmin(_id)}
+                                className="text-3xl md:text-4xl hover:scale-125 transition-all cursor-pointer "
+                              />
+                            </Typography>
+                          )}
+                        </>
                       )}
                     </td>
                     <td className={classes}>
-                      {role === "agent" ? (
-                        <p className="text-base font-bold text-green-600 bg-green-100/90 text-center rounded-full">
-                          AGENT
+                      {role === "fraud" ? (
+                        <p className="text-base font-bold text-red-600 bg-red-100/90 text-center rounded-full">
+                          FRAUD
                         </p>
                       ) : (
-                        <Typography
-                          color="green"
-                          className="font-normal flex justify-center"
-                        >
-                          <RiUserAddFill
-                            onClick={() => handleMakeAgent(_id)}
-                            className="text-3xl md:text-4xl hover:scale-125 transition-all cursor-pointer"
-                          />
-                        </Typography>
+                        <>
+                          {role === "agent" ? (
+                            <p className="text-base font-bold text-green-600 bg-green-100/90 text-center rounded-full">
+                              AGENT
+                            </p>
+                          ) : (
+                            <Typography
+                              color="green"
+                              className="font-normal flex justify-center"
+                            >
+                              <RiUserAddFill
+                                onClick={() => handleMakeAgent(_id)}
+                                className="text-3xl md:text-4xl hover:scale-125 transition-all cursor-pointer"
+                              />
+                            </Typography>
+                          )}
+                        </>
                       )}
                     </td>
                     <td className={classes}>
-                      <Typography
-                        color="red"
-                        className="font-normal flex justify-center"
-                      >
-                        <FaExclamationCircle className="text-3xl md:text-4xl hover:scale-125 transition-all cursor-pointer" />
-                      </Typography>
+                      {role === "agent" && (
+                        <>
+                          {role === "fraud" ? (
+                            <p className="text-base font-bold text-red-600 bg-red-100/90 text-center rounded-full">
+                              FRAUD
+                            </p>
+                          ) : (
+                            <Typography
+                              color="red"
+                              className="font-normal flex justify-center"
+                            >
+                              <FaExclamationCircle
+                                onClick={() => handleMakeFraud(_id)}
+                                className="text-3xl md:text-4xl hover:scale-125 transition-all cursor-pointer"
+                              />
+                            </Typography>
+                          )}
+                        </>
+                      )}
+
+                      {role === "fraud" && (
+                        <p className="text-base font-bold text-red-600 bg-red-100/90 text-center rounded-full">
+                          FRAUD
+                        </p>
+                      )}
                     </td>
                     <td className={classes}>
                       <Typography
