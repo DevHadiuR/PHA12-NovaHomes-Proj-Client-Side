@@ -112,6 +112,35 @@ const AdminManageUsers = () => {
       }
     });
   };
+  //   Handle delete users From here
+  const handleDeleteUser = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You want to Delete this user?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Delete Him!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.delete(`/allUsers/${id}`)
+        .then((res) => {
+          const result = res.data;
+          if (result.deletedCount > 0) {
+            refetch();
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "This user is now Deleted!",
+              showConfirmButton: false,
+              timer: 2000,
+            });
+          }
+        });
+      }
+    });
+  };
 
   return (
     <section>
@@ -254,7 +283,10 @@ const AdminManageUsers = () => {
                         color="red"
                         className="font-normal flex justify-center"
                       >
-                        <MdDeleteForever className="text-4xl md:text-4xl hover:scale-125 transition-all cursor-pointer" />
+                        <MdDeleteForever
+                          onClick={() => handleDeleteUser(_id)}
+                          className="text-4xl md:text-4xl hover:scale-125 transition-all cursor-pointer"
+                        />
                       </Typography>
                     </td>
                   </tr>
