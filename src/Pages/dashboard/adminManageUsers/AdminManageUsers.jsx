@@ -4,6 +4,8 @@ import { Card, Typography } from "@material-tailwind/react";
 
 import { RiUserAddFill } from "react-icons/ri";
 import { FaExclamationCircle } from "react-icons/fa";
+import useAxiosSecure from "../../../hook/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
 const TABLE_HEAD = [
   "User Name",
   "User Email",
@@ -13,19 +15,19 @@ const TABLE_HEAD = [
   "Delete User",
 ];
 
-const TABLE_ROWS = [
-  {
-    name: "John Michael",
-    job: "Manager",
-    date: "23/04/18",
-  },
-  {
-    name: "Alexa Liras",
-    job: "Developer",
-    date: "23/04/18",
-  },
-];
 const AdminManageUsers = () => {
+  const axiosSecure = useAxiosSecure();
+
+  const { data: allUsers = [] } = useQuery({
+    queryKey: ["allUsers"],
+    queryFn: async () => {
+      const res = await axiosSecure.get("/allUsers");
+      return res.data;
+    },
+  });
+
+  console.log(allUsers);
+
   return (
     <section>
       <>
@@ -58,8 +60,8 @@ const AdminManageUsers = () => {
               </tr>
             </thead>
             <tbody>
-              {TABLE_ROWS.map(({ name, job }, index) => {
-                const isLast = index === TABLE_ROWS.length - 1;
+              {allUsers.map(({ name, email }, index) => {
+                const isLast = index === allUsers.length - 1;
                 const classes = isLast
                   ? "p-4"
                   : "p-4 border-b border-blue-gray-50";
@@ -81,7 +83,7 @@ const AdminManageUsers = () => {
                         color="blue-gray"
                         className="font-normal"
                       >
-                        {job}
+                        {email}
                       </Typography>
                     </td>
 
