@@ -8,8 +8,13 @@ import { MdOutlineReviews } from "react-icons/md";
 import { NavLink, Outlet } from "react-router-dom";
 import logo from "../../../assets/logoWhite.jpg";
 import { TbBrandCashapp } from "react-icons/tb";
+import useRole from "../../../hook/useRole";
 
 const Dashboard = () => {
+  const { userRole } = useRole();
+  const runningUserRole = userRole.userRole;
+  console.log(runningUserRole);
+
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -45,154 +50,99 @@ const Dashboard = () => {
             NovaHome | Agency
           </li>
 
-          {/* Sidebar content here . It will be conditional . */}
+          {/* Admin Route */}
+          {runningUserRole === "admin" && (
+            <>
+              <li>
+                <NavLink to="/dashboard/profile">
+                  <CgProfile className="text-lg md:text-2xl" /> Admin Profile
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/dashboard/adminManageProperty">
+                  <GiFamilyHouse className="text-lg md:text-2xl" /> Manage
+                  Properties
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/dashboard/adminManageUsers">
+                  <FaUsers className="text-lg md:text-2xl" /> Manage Users
+                </NavLink>
+              </li>
 
-          {/* {isAdmin ? (
-            <>
               <li>
-                <NavLink to="/dashboard/adminHome">
-                  <IoIosHome className="text-2xl" /> Admin Home
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/dashboard/addItems">
-                  <FaUtensils className="text-2xl" /> Add Items
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/dashboard/manageItems">
-                  <TfiMenuAlt className="text-2xl" /> Manage Items
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/dashboard/manageBookings">
-                  <TbBrandBooking className="text-2xl" /> Manage Bookings
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/dashboard/allUsers">
-                  <PiUsersThreeFill className="text-2xl" /> All Users
+                <NavLink to="/dashboard/adminManageReviews">
+                  <MdOutlineReviews className="text-lg md:text-2xl" /> Manage
+                  Reviews
                 </NavLink>
               </li>
             </>
-          ) : (
+          )}
+
+          {/* Agent Route */}
+
+          {runningUserRole === "agent" && (
             <>
               <li>
-                <NavLink to="/dashboard/userHome">
-                  <IoIosHome className="text-2xl" /> User Home
+                <NavLink to="/dashboard/profile">
+                  <CgProfile className="text-lg md:text-2xl" /> Agent Profile
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/reservation">
-                  <SlCalender className="text-2xl" /> Reservation
+                <NavLink to="/dashboard/agentAddProperty">
+                  <GiFamilyHouse className="text-lg md:text-2xl" /> Add Property
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/paymentHistory">
-                  <MdOutlinePayment className="text-2xl" /> Payment History
+                <NavLink to="/dashboard/agentMyAddedProperty">
+                  <GiHouse className="text-lg md:text-2xl" /> My Added Property
+                </NavLink>
+              </li>
+
+              <li>
+                <NavLink to="/dashboard/agentMySoldProperty">
+                  <TbBrandCashapp className="text-lg md:text-2xl" /> My Sold
+                  Property
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/cart">
-                  <IoCart className="text-2xl" /> My Cart ({carts.length})
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/dashboard/review">
-                  <MdRateReview className="text-2xl" /> Add Review
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/dashboard/booking">
-                  <TbBrandBooking className="text-2xl" /> My Booking
+                <NavLink to="/dashboard/agentRequestedProperty">
+                  <FaHouseUser className="text-lg md:text-2xl" /> Requested
+                  Properties
                 </NavLink>
               </li>
             </>
-          )} */}
+          )}
 
           {/* user route */}
 
-          <>
-            <li>
-              <NavLink to="/dashboard/profile">
-                <CgProfile className="text-lg md:text-2xl" /> My Profile
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/dashboard/userWishlist">
-                <FaList className="text-lg md:text-2xl" /> Wishlist
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/dashboard/userPropertyBought">
-                <GiFamilyHouse className="text-lg md:text-2xl" /> Property
-                Bought
-              </NavLink>
-            </li>
+          {runningUserRole !== "admin" && runningUserRole !== "agent" && (
+            <>
+              <li>
+                <NavLink to="/dashboard/profile">
+                  <CgProfile className="text-lg md:text-2xl" /> My Profile
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/dashboard/userWishlist">
+                  <FaList className="text-lg md:text-2xl" /> Wishlist
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/dashboard/userPropertyBought">
+                  <GiFamilyHouse className="text-lg md:text-2xl" /> Property
+                  Bought
+                </NavLink>
+              </li>
 
-            <li>
-              <NavLink to="/dashboard/userReview">
-                <MdOutlineReviews className="text-lg md:text-2xl" /> My Reviews
-              </NavLink>
-            </li>
-          </>
-          {/* Agent Route */}
-          <>
-            <li>
-              <NavLink to="/dashboard/profile">
-                <CgProfile className="text-lg md:text-2xl" /> Agent Profile
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/dashboard/agentAddProperty">
-                <GiFamilyHouse className="text-lg md:text-2xl" /> Add Property
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/dashboard/agentMyAddedProperty">
-                <GiHouse className="text-lg md:text-2xl" /> My Added Property
-              </NavLink>
-            </li>
-
-            <li>
-              <NavLink to="/dashboard/agentMySoldProperty">
-                <TbBrandCashapp className="text-lg md:text-2xl" /> My Sold
-                Property
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/dashboard/agentRequestedProperty">
-                <FaHouseUser className="text-lg md:text-2xl" /> Requested
-                Properties
-              </NavLink>
-            </li>
-          </>
-          {/* Admin Route */}
-          <>
-            <li>
-              <NavLink to="/dashboard/profile">
-                <CgProfile className="text-lg md:text-2xl" /> Admin Profile
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/dashboard/adminManageProperty">
-                <GiFamilyHouse className="text-lg md:text-2xl" /> Manage
-                Properties
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/dashboard/adminManageUsers">
-                <FaUsers className="text-lg md:text-2xl" /> Manage Users
-              </NavLink>
-            </li>
-
-            <li>
-              <NavLink to="/dashboard/adminManageReviews">
-                <MdOutlineReviews className="text-lg md:text-2xl" /> Manage
-                Reviews
-              </NavLink>
-            </li>
-          </>
+              <li>
+                <NavLink to="/dashboard/userReview">
+                  <MdOutlineReviews className="text-lg md:text-2xl" /> My
+                  Reviews
+                </NavLink>
+              </li>
+            </>
+          )}
 
           {/* shared link are below here */}
 
