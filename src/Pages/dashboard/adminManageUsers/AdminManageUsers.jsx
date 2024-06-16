@@ -48,7 +48,7 @@ const AdminManageUsers = () => {
               icon: "success",
               title: "This user is now an Admin!",
               showConfirmButton: false,
-              timer: 1500,
+              timer: 2000,
             });
           }
         });
@@ -56,8 +56,8 @@ const AdminManageUsers = () => {
     });
   };
 
-//   Handle Make Agent From here
-const handleMakeAgent = (id) => {
+  //   Handle Make Agent From here
+  const handleMakeAgent = (id) => {
     Swal.fire({
       title: "Are you sure?",
       text: "You want to make this user Agent?",
@@ -68,23 +68,22 @@ const handleMakeAgent = (id) => {
       confirmButtonText: "Yes, Make him Agent!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosSecure.patch(`/allUsers/admin/${id}`).then((res) => {
+        axiosSecure.patch(`/allUsers/agent/${id}`).then((res) => {
           const result = res.data;
           if (result.modifiedCount) {
             refetch();
             Swal.fire({
               position: "top-end",
               icon: "success",
-              title: "This user is now an Admin!",
+              title: "This user is now an Agent!",
               showConfirmButton: false,
-              timer: 1500,
+              timer: 2000,
             });
           }
         });
       }
     });
   };
-
 
   return (
     <section>
@@ -163,14 +162,21 @@ const handleMakeAgent = (id) => {
                       )}
                     </td>
                     <td className={classes}>
-                      <Typography
-                        color="green"
-                        className="font-normal flex justify-center"
-                      >
-                        <RiUserAddFill
-                        onClick={() => handleMakeAgent(_id)}
-                        className="text-3xl md:text-4xl hover:scale-125 transition-all cursor-pointer" />
-                      </Typography>
+                      {role === "agent" ? (
+                        <p className="text-base font-bold text-green-600 bg-green-100/90 text-center rounded-full">
+                          AGENT
+                        </p>
+                      ) : (
+                        <Typography
+                          color="green"
+                          className="font-normal flex justify-center"
+                        >
+                          <RiUserAddFill
+                            onClick={() => handleMakeAgent(_id)}
+                            className="text-3xl md:text-4xl hover:scale-125 transition-all cursor-pointer"
+                          />
+                        </Typography>
+                      )}
                     </td>
                     <td className={classes}>
                       <Typography
