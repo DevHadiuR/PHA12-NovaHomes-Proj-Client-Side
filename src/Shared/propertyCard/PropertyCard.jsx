@@ -3,7 +3,7 @@ import { RiDeleteBin5Line } from "react-icons/ri";
 import { Link, useLocation } from "react-router-dom";
 import useAuth from "../../hook/useAuth";
 
-const PropertyCard = ({ property, idx }) => {
+const PropertyCard = ({ property, idx, handlePropertyDelete }) => {
   const locaiton = useLocation();
   const { user } = useAuth();
 
@@ -228,8 +228,8 @@ const PropertyCard = ({ property, idx }) => {
           )}
 
           {agentMyAddedPropertyLocation && (
-            <Link to={`/dashboard/agentUpdateProperty/${_id}`}>
-              <div className="mt-4 flex justify-between flex-col gap-3 md:flex-row">
+            <div className="mt-4 flex justify-between flex-col gap-3 md:flex-row">
+              <Link to={`/dashboard/agentUpdateProperty/${_id}`}>
                 <a className="relative inline-flex items-center justify-start md:py-3 md:pl-4 md:pr-12 py-2 pl-2 w-full md:w-auto overflow-hidden font-semibold text-indigo-600 transition-all duration-150 ease-in-out rounded hover:pl-10 hover:pr-6 bg-gray-50 group">
                   <span className="absolute bottom-0 left-0 w-full h-1 transition-all duration-150 ease-in-out bg-[#39474F] group-hover:h-full"></span>
                   <span className="absolute right-0 pr-4 duration-200 ease-out group-hover:translate-x-12">
@@ -269,21 +269,22 @@ const PropertyCard = ({ property, idx }) => {
                     UPDATE
                   </span>
                 </a>
+              </Link>
 
-                <a
-                  href="#_"
-                  className="relative rounded  md:px-8 md:py-4 px-3 py-2 overflow-hidden group bg-amber-500  hover:bg-gradient-to-r hover:from-red-500 hover:to-red-400 text-white hover:ring-2 hover:ring-offset-2 hover:ring-red-400 transition-all ease-out duration-300"
-                >
-                  <span className="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
-                  <span className="relative text-lg font-bold flex items-center gap-3 justify-between">
-                    <span>DELETE </span>
-                    <span>
-                      <RiDeleteBin5Line />
-                    </span>
+              <a
+                onClick={() => handlePropertyDelete(_id)}
+                href="#_"
+                className="relative rounded  md:px-8 md:py-4 px-3 py-2 overflow-hidden group bg-amber-500  hover:bg-gradient-to-r hover:from-red-500 hover:to-red-400 text-white hover:ring-2 hover:ring-offset-2 hover:ring-red-400 transition-all ease-out duration-300"
+              >
+                <span className="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
+                <span className="relative text-lg font-bold flex items-center gap-3 justify-between">
+                  <span>DELETE </span>
+                  <span>
+                    <RiDeleteBin5Line />
                   </span>
-                </a>
-              </div>
-            </Link>
+                </span>
+              </a>
+            </div>
           )}
         </div>
       </div>
