@@ -18,6 +18,7 @@ import AgentRequestedProperty from "../../Pages/dashboard/agentRequestedProperty
 import AdminManageProperty from "../../Pages/dashboard/adminManageProperty/AdminManageProperty";
 import AdminManageUsers from "../../Pages/dashboard/adminManageUsers/AdminManageUsers";
 import AdminManageReviews from "../../Pages/dashboard/adminManageReviews/AdminManageReviews";
+import AgentUpdateProperty from "../../Pages/dashboard/agentUpdateProperty/AgentUpdateProperty";
 
 export const router = createBrowserRouter([
   {
@@ -75,6 +76,10 @@ export const router = createBrowserRouter([
       {
         path: "agentMyAddedProperty",
         element: <AgentMyAddedProperty></AgentMyAddedProperty>,
+      },
+      {
+        path: "agentUpdateProperty/:id",
+        element: <AgentUpdateProperty></AgentUpdateProperty>,
       },
       {
         path: "agentMySoldProperty",
