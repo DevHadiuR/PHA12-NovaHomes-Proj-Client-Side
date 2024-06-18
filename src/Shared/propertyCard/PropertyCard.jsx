@@ -1,10 +1,11 @@
 import { Button } from "@material-tailwind/react";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { Link, useLocation } from "react-router-dom";
+import useAuth from "../../hook/useAuth";
 
 const PropertyCard = ({ property, idx }) => {
   const locaiton = useLocation();
- 
+  const { user } = useAuth();
 
   const wishlistLocaiton = locaiton.pathname.includes(
     "/dashboard/userWishlist"
@@ -47,16 +48,24 @@ const PropertyCard = ({ property, idx }) => {
         ></div>
         <div className="flex flex-col p-6 col-span-full row-span-full md:col-span-7 lg:p-10 ml-0 md:ml-8">
           <div className="flex justify-between gap-10">
-            {!userPropertyBoughtLocation && (
+            {/* {!userPropertyBoughtLocation && (
               <span
                 className={`px-3 py-2 mb-5 rounded-full
                    text-green-600 bg-green-100/90 `}
               >
                 {verificationStatus}
               </span>
-            )}
+            )} */}
 
             {userPropertyBoughtLocation && (
+              <span
+                className={`px-3 py-2 mb-5 rounded-full
+                   text-green-600 bg-green-100/90 `}
+              >
+                Pending
+              </span>
+            )}
+            {agentMyAddedPropertyLocation && (
               <span
                 className={`px-3 py-2 mb-5 rounded-full
                    text-green-600 bg-green-100/90 `}
@@ -108,7 +117,7 @@ const PropertyCard = ({ property, idx }) => {
             <span className="text-lg font-bold ">Agent Image : </span>
             <div className="avatar">
               <div className="w-12 md:w-14 mask mask-squircle">
-                <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                <img src={user?.photoURL} />
               </div>
             </div>
           </p>

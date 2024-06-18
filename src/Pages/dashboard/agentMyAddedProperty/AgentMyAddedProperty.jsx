@@ -1,10 +1,12 @@
 
 import DynamicTitleDesc from "../../../Shared/dynamicTitleDesc/DynamicTitleDesc";
 import PropertyCard from "../../../Shared/propertyCard/PropertyCard";
-import useAllProperties from "../../../hook/useAllProperties";
+import usePropertyByEmail from "../../../hook/usePropertyByEmail";
+
 
 const AgentMyAddedProperty = () => {
-  const { allProperties } = useAllProperties();
+const {allPropertiesByEmail} = usePropertyByEmail();
+
   return (
     <section>
       <>
@@ -16,7 +18,7 @@ const AgentMyAddedProperty = () => {
         />
       </>
       <div className="w-[95%] mx-auto">
-        {allProperties.map((property, idx) => (
+        {allPropertiesByEmail.map((property, idx) => (
           <PropertyCard key={idx} property={property} idx={idx} />
         ))}
       </div>

@@ -4,6 +4,7 @@ import useAuth from "../../../hook/useAuth";
 import useAxiosPublic from "../../../hook/useAxiosPublic";
 import useAxiosSecure from "../../../hook/useAxiosSecure";
 import Swal from "sweetalert2";
+// import { useState } from "react";
 // import DynamicTitleDesc from "../../../Shared/dynamicTitleDesc/DynamicTitleDesc";
 const imgBB_api =
   "https://api.imgbb.com/1/upload?key=667d80a3b99faf5238f607dc5cc13485";
@@ -13,6 +14,7 @@ const AgentAddProperty = () => {
   const { displayName, email } = user || {};
   const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
+  // const [loading ,setLoading] = useState(false)
 
   const {
     register,
@@ -22,6 +24,7 @@ const AgentAddProperty = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
+// setLoading(true)
     console.log(data);
     const imgFile = {
       image: data.propertyImage[0],
@@ -74,6 +77,8 @@ const AgentAddProperty = () => {
         reset();
       }
     }
+
+    
   };
 
   return (
