@@ -11,7 +11,7 @@ const imgBB_api =
 
 const AgentAddProperty = () => {
   const { user } = useAuth();
-  const { displayName, email } = user || {};
+  const { displayName, email, photoURL } = user || {};
   const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
   // const [loading ,setLoading] = useState(false)
@@ -24,7 +24,7 @@ const AgentAddProperty = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-// setLoading(true)
+    // setLoading(true)
     console.log(data);
     const imgFile = {
       image: data.propertyImage[0],
@@ -44,6 +44,7 @@ const AgentAddProperty = () => {
       propertyDescription: data.propertyDescription,
       propertyShortDescription: data.propertyShortDescription,
       agentName: data.agentName,
+      agentImage: data.agentImage,
       agentEmail: data.agentEmail,
       minPrice: parseFloat(data.minPrice),
       maxPrice: parseFloat(data.maxPrice),
@@ -77,8 +78,6 @@ const AgentAddProperty = () => {
         reset();
       }
     }
-
-    
   };
 
   return (
@@ -217,6 +216,27 @@ const AgentAddProperty = () => {
                   className="py-3 text-xl"
                 />
                 {errors.agentName && (
+                  <span className="text-red-600">This field is required</span>
+                )}
+              </div>
+              {/* Agent Image input */}
+              <div className="mt-5 form-control">
+                <label>
+                  Agent Image <span className="text-red-400">*</span>{" "}
+                </label>
+                <Input
+                  variant="standard"
+                  placeholder="Enter Agent Image"
+                  name="agentImage"
+                  readOnly
+                  defaultValue={user?.photoURL}
+                  type="url"
+                  size="md"
+                  color="orange"
+                  {...register("agentImage", { required: true })}
+                  className="py-3 text-xl"
+                />
+                {errors.agentImage && (
                   <span className="text-red-600">This field is required</span>
                 )}
               </div>

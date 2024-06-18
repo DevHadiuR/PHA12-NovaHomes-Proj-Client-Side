@@ -7,6 +7,7 @@ const Profile = () => {
   console.log(runningUserRole);
   const { user } = useAuth();
   const { email, displayName, photoURL } = user || {};
+  console.log(photoURL);
 
   return (
     <section>

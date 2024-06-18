@@ -64,7 +64,8 @@ const AgentUpdateProperty = () => {
               `,
         },
       });
-      window.location.reload(true);
+      //   window.location.reload(true);
+      reset();
     },
   });
 
@@ -82,8 +83,8 @@ const AgentUpdateProperty = () => {
       propertyTitle: data.propertyTitle,
       propertyLocation: data.propertyLocation,
       propertyImage: res.data.data.display_url,
-
       agentName: data.agentName,
+      agentImage: data.agentImage,
       agentEmail: data.agentEmail,
       minPrice: parseFloat(data.minPrice),
       maxPrice: parseFloat(data.maxPrice),
@@ -191,6 +192,27 @@ const AgentUpdateProperty = () => {
                   className="py-3 text-xl"
                 />
                 {errors.agentName && (
+                  <span className="text-red-600">This field is required</span>
+                )}
+              </div>
+              {/* Agent Image input */}
+              <div className="mt-5 form-control">
+                <label>
+                  Agent Image <span className="text-red-400">*</span>{" "}
+                </label>
+                <Input
+                  variant="standard"
+                  placeholder="Enter Agent Image"
+                  name="agentImage"
+                  readOnly
+                  defaultValue={user?.photoURL}
+                  type="url"
+                  size="md"
+                  color="orange"
+                  {...register("agentImage", { required: false })}
+                  className="py-3 text-xl"
+                />
+                {errors.agentImage && (
                   <span className="text-red-600">This field is required</span>
                 )}
               </div>

@@ -1,9 +1,10 @@
 import DynamicTitleDesc from "../../Shared/dynamicTitleDesc/DynamicTitleDesc";
 import PropertyCard from "../../Shared/propertyCard/PropertyCard";
-import useAllProperties from "../../hook/useAllProperties";
+
+import useAllVerifiedProperties from "../../hook/useAllVerifiedProperties";
 
 const AllProperties = () => {
-  const { allProperties } = useAllProperties();
+  const { allAdminVerifiedProperites } = useAllVerifiedProperties();
 
   return (
     <section>
@@ -16,7 +17,7 @@ const AllProperties = () => {
         />
       </div>
       <div className="w-[95%] md:w-full mx-auto">
-        {allProperties.map((property, idx) => (
+        {allAdminVerifiedProperites.map((property, idx) => (
           <PropertyCard property={property} key={idx} idx={idx}></PropertyCard>
         ))}
       </div>

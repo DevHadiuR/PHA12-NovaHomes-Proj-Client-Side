@@ -7,6 +7,8 @@ const PropertyCard = ({ property, idx, handlePropertyDelete }) => {
   const locaiton = useLocation();
   const { user } = useAuth();
 
+  console.log(locaiton);
+
   const wishlistLocaiton = locaiton.pathname.includes(
     "/dashboard/userWishlist"
   );
@@ -19,6 +21,9 @@ const PropertyCard = ({ property, idx, handlePropertyDelete }) => {
     "/dashboard/agentMyAddedProperty"
   );
 
+  const allPropertiesPageLocation =
+    location.pathname.includes("/allProperties");
+
   const {
     propertyImage,
     propertyLocation,
@@ -26,6 +31,7 @@ const PropertyCard = ({ property, idx, handlePropertyDelete }) => {
     maxPrice,
     verificationStatus,
     agentName,
+    agentImage,
     propertyShortDescription,
     propertyTitle,
     _id,
@@ -67,13 +73,32 @@ const PropertyCard = ({ property, idx, handlePropertyDelete }) => {
                 Pending
               </span>
             )}
-            {agentMyAddedPropertyLocation && (
+            {allPropertiesPageLocation && (
               <span
                 className={`px-3 py-2 mb-5 rounded-full
                    text-green-600 bg-green-100/90 `}
               >
-                Pending
+                {verificationStatus}
               </span>
+            )}
+            {agentMyAddedPropertyLocation && (
+              <>
+                {verificationStatus ? (
+                  <span
+                    className={`px-3 py-2 mb-5 rounded-full
+              text-green-600 bg-green-100/90 `}
+                  >
+                    {verificationStatus}
+                  </span>
+                ) : (
+                  <span
+                    className={`px-3 py-2 mb-5 rounded-full
+            text-green-600 bg-green-100/90 `}
+                  >
+                    Pending
+                  </span>
+                )}
+              </>
             )}
 
             <p className="text-lg text-white  md:text-xl font-bold md:text-[#39474F]">
@@ -119,7 +144,7 @@ const PropertyCard = ({ property, idx, handlePropertyDelete }) => {
             <span className="text-lg font-bold ">Agent Image : </span>
             <div className="avatar">
               <div className="w-12 md:w-14 mask mask-squircle">
-                <img src={user?.photoURL} />
+                <img src={agentImage} />
               </div>
             </div>
           </p>
