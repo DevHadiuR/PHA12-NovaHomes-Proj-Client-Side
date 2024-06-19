@@ -7,10 +7,12 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 // import { toast } from "react-toastify";
 import toast, { Toaster } from "react-hot-toast";
 import Swal from "sweetalert2";
+import useRole from "../../hook/useRole";
 
 const Comments = ({ userEmail, agentEmail, propertyId }) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
+  const { userRole } = useRole();
 
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
@@ -72,7 +74,14 @@ const Comments = ({ userEmail, agentEmail, propertyId }) => {
     console.log(id, reviewerEmail);
 
     if (reviewerEmail !== email) {
-      toast.error("Cannot Delete Others Comment!");
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "Cannot Delete Others Comment!",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+      // toast.error("Cannot Delete Others Comment!");
       return;
     }
 
@@ -117,9 +126,8 @@ const Comments = ({ userEmail, agentEmail, propertyId }) => {
             </div>
 
             <div className="my-6">
-              {userEmail === agentEmail ? (
+              {!userRole.userRole ? (
                 <Button
-                  disabled
                   color="amber"
                   className="select-none rounded-lg py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-[#39474F] shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                   data-ripple-light="true"
@@ -130,6 +138,7 @@ const Comments = ({ userEmail, agentEmail, propertyId }) => {
                 </Button>
               ) : (
                 <Button
+                  disabled
                   color="amber"
                   className="select-none rounded-lg py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-[#39474F] shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                   data-ripple-light="true"

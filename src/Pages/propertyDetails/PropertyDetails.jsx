@@ -7,12 +7,14 @@ import useAuth from "../../hook/useAuth";
 import useAxiosPublic from "../../hook/useAxiosPublic";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
+import useRole from "../../hook/useRole";
 
 const PropertyDetails = () => {
   const { user } = useAuth();
   const { id } = useParams();
   const axiosSecure = useAxiosSecure();
   const axiosPublic = useAxiosPublic();
+  const { userRole } = useRole();
 
   const { data: property = [], isLoading } = useQuery({
     queryKey: ["perPropertyById"],
@@ -132,9 +134,8 @@ const PropertyDetails = () => {
         </div>
 
         <div className="flex justify-end my-14">
-          {user?.email === agentEmail ? (
+          {!userRole.userRole ? (
             <Button
-              disabled
               onClick={() => handleWishlistBtn(property)}
               color="amber"
               size="sm"
@@ -144,6 +145,7 @@ const PropertyDetails = () => {
             </Button>
           ) : (
             <Button
+              disabled
               onClick={() => handleWishlistBtn(property)}
               color="amber"
               size="sm"
