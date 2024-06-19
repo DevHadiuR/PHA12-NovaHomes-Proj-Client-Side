@@ -3,7 +3,7 @@ import { useState } from "react";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import useAxiosSecure from "../../hook/useAxiosSecure";
 import useAuth from "../../hook/useAuth";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 // import { toast } from "react-toastify";
 import toast, { Toaster } from "react-hot-toast";
 
@@ -30,7 +30,7 @@ const Comments = ({ userEmail, agentEmail, propertyId }) => {
     },
     onSuccess: () => {
       toast.success("Thank You So Much For Your Review!");
-      // refetch();
+      refetch();
     },
     onError: (error) => {
       toast.error("An error occurred while submitting your review!");
@@ -54,6 +54,18 @@ const Comments = ({ userEmail, agentEmail, propertyId }) => {
     e.target.reset();
   };
 
+  // get all the review for this specific property
+  const { data: allReviews = [], refetch } = useQuery({
+    queryFn: () => getReviews(),
+    queryKey: ["getReviewsByID"],
+  });
+
+  const getReviews = async () => {
+    const { data } = await axiosSecure(`/allReviews/${propertyId}
+  `);
+    return data;
+  };
+
   return (
     <div className="mt-40">
       {/* comment section */}
@@ -63,8 +75,7 @@ const Comments = ({ userEmail, agentEmail, propertyId }) => {
           <div className="flex  justify-between items-center">
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white">
-                {/* Comments ({comments.length}) */}
-                (13) Reviews
+                ({allReviews.length}) Reviews
               </h2>
             </div>
             {/* {bloggerEmail !== email && (
@@ -197,29 +208,35 @@ const Comments = ({ userEmail, agentEmail, propertyId }) => {
               </p>
             </article>
           ))} */}
-            <article className="p-6 mb-3 mt-8 text-base bg-white border-t border-gray-300 dark:border-gray-700 dark:bg-gray-900">
-              <footer className="flex justify-between items-center mb-2">
-                <div className="flex items-center">
-                  <p className="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white font-semibold">
-                    <img
-                      referrerPolicy="no-referrer"
-                      className="mr-2 w-10 h-10 rounded-full"
-                      src="https://i.ibb.co/dc6DXV9/5.jpg"
-                      alt="Bonnie Green"
-                    />
-                    Hadiur Rahman
-                  </p>
-                </div>
-                <div>
-                  <button>
-                    <RiDeleteBin6Line className="text-2xl" />
-                  </button>
-                </div>
-              </footer>
-              <p className="text-gray-500 dark:text-gray-400 break-all">
-                Very Very Good
-              </p>
-            </article>
+
+            {allReviews.map((review) => (
+              <article
+                key={review._id}
+                className="p-6 mb-3 mt-8 text-base bg-white border-t border-gray-300 dark:border-gray-700 dark:bg-gray-900"
+              >
+                <footer className="flex justify-between items-center mb-2">
+                  <div className="flex items-center">
+                    <p className="inline-flex items-center mr-3 text-sm md:text-base text-gray-900 dark:text-white font-semibold">
+                      <img
+                        referrerPolicy="no-referrer"
+                        className="mr-2 w-10 h-10 rounded-full"
+                        src={review.reviewerPhoto}
+                        alt="Bonnie Green"
+                      />
+                      {review.reviewerName}
+                    </p>
+                  </div>
+                  <div>
+                    <button>
+                      <RiDeleteBin6Line className="text-2xl" />
+                    </button>
+                  </div>
+                </footer>
+                <p className="text-gray-500 dark:text-gray-400 break-all md:text-lg">
+                  {review.reviewerReview}
+                </p>
+              </article>
+            ))}
           </div>
         </div>
       </section>
