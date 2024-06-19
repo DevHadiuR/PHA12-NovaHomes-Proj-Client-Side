@@ -132,14 +132,26 @@ const PropertyDetails = () => {
         </div>
 
         <div className="flex justify-end my-14">
-          <Button
-            onClick={() => handleWishlistBtn(property)}
-            color="amber"
-            size="sm"
-            className="text-sm md:text-base"
-          >
-            Add TO Wishlist
-          </Button>
+          {user?.email === agentEmail ? (
+            <Button
+              disabled
+              onClick={() => handleWishlistBtn(property)}
+              color="amber"
+              size="sm"
+              className="text-sm md:text-base"
+            >
+              Add TO Wishlist
+            </Button>
+          ) : (
+            <Button
+              onClick={() => handleWishlistBtn(property)}
+              color="amber"
+              size="sm"
+              className="text-sm md:text-base"
+            >
+              Add TO Wishlist
+            </Button>
+          )}
         </div>
 
         <div className="mt-5 lg:hidden">
@@ -213,7 +225,7 @@ const PropertyDetails = () => {
                   <span className="text-3xl">:</span>
                   <div className="avatar">
                     <div className="w-12 md:w-14 mask mask-squircle">
-                      <img src={agentImage} />
+                      <img referrerPolicy="no-referrer" src={agentImage} />
                     </div>
                   </div>
                 </p>
@@ -234,7 +246,11 @@ const PropertyDetails = () => {
 
         {/* users comments div */}
         <div>
-          <Comments></Comments>
+          <Comments
+            propertyId={id}
+            userEmail={user?.email}
+            agentEmail={agentEmail}
+          ></Comments>
         </div>
       </div>
     </section>

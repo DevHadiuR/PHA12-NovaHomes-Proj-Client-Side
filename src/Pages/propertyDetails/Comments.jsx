@@ -1,11 +1,58 @@
 import { Button, Dialog } from "@material-tailwind/react";
 import { useState } from "react";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import useAxiosSecure from "../../hook/useAxiosSecure";
+import useAuth from "../../hook/useAuth";
+import { useMutation } from "@tanstack/react-query";
+// import { toast } from "react-toastify";
+import toast, { Toaster } from "react-hot-toast";
 
-const Comments = () => {
+const Comments = ({ userEmail, agentEmail, propertyId }) => {
   const [open, setOpen] = useState(false);
-
   const handleOpen = () => setOpen(!open);
+
+  const axiosSecure = useAxiosSecure();
+  const { user } = useAuth();
+  const { displayName, photoURL, email } = user || {};
+
+  //   using tanstack for post data
+  const { mutate } = useMutation({
+    mutationFn: async (reviewData) => {
+      try {
+        const value = await axiosSecure.post("/allReviews", reviewData);
+        const data = value.data;
+        console.log(data);
+        return data; //
+      } catch (err) {
+        console.log(err);
+        throw err;
+      }
+    },
+    onSuccess: () => {
+      toast.success("Thank You So Much For Your Review!");
+      // refetch();
+    },
+    onError: (error) => {
+      toast.error("An error occurred while submitting your review!");
+    },
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const reviewerReview = e.target.review.value;
+
+    const reviewData = {
+      reviewerReview,
+      reviewerEmail: email,
+      reviewerPhoto: photoURL,
+      reviewerName: displayName,
+      agentEmail,
+      propertyId,
+    };
+
+    mutate(reviewData);
+    e.target.reset();
+  };
 
   return (
     <div className="mt-40">
@@ -28,15 +75,29 @@ const Comments = () => {
               </div>
             )} */}
             <div className="my-6">
-              <Button
-                color="amber"
-                className="select-none rounded-lg py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-[#39474F] shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                data-ripple-light="true"
-                data-dialog-target="animated-dialog"
-                onClick={handleOpen}
-              >
-                Leave a Review
-              </Button>
+              {userEmail === agentEmail ? (
+                <Button
+                  disabled
+                  color="amber"
+                  className="select-none rounded-lg py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-[#39474F] shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                  data-ripple-light="true"
+                  data-dialog-target="animated-dialog"
+                  onClick={handleOpen}
+                >
+                  Leave a Review
+                </Button>
+              ) : (
+                <Button
+                  color="amber"
+                  className="select-none rounded-lg py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-[#39474F] shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                  data-ripple-light="true"
+                  data-dialog-target="animated-dialog"
+                  onClick={handleOpen}
+                >
+                  Leave a Review
+                </Button>
+              )}
+
               <div
                 data-dialog-backdrop="animated-dialog"
                 data-dialog-backdrop-close="true"
@@ -52,66 +113,50 @@ const Comments = () => {
                   className="relative m-4  rounded-lg bg-white font-sans text-base font-light leading-relaxed text-blue-gray-500 antialiased shadow-2xl p-8"
                 >
                   {/* 3rd part */}
-                  <div className="">
-                    <div className="avatar ring-2 p-1 rounded-full ring-amber-500 mb-4">
-                      <div className="w-14 rounded-full">
-                        {/* <img src={photoURL} referrerPolicy="no-referrer" /> */}
-                        <img
-                          src="https://i.ibb.co/dc6DXV9/5.jpg"
-                          referrerPolicy="no-referrer"
-                        />
+                  <form onSubmit={handleSubmit}>
+                    <div className="">
+                      <div className="avatar ring-2 p-1 rounded-full ring-amber-500 mb-4">
+                        <div className="w-14 rounded-full">
+                          {/* <img src={photoURL} referrerPolicy="no-referrer" /> */}
+                          <img src={photoURL} referrerPolicy="no-referrer" />
+                        </div>
+                      </div>
+
+                      {/* <form  className="mb-6"> */}
+                      <div className="mb-6 form-control">
+                        <div className="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-300 dark:bg-gray-800 dark:border-gray-700">
+                          <textarea
+                            id="comment"
+                            rows="6"
+                            name="review"
+                            className="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800"
+                            placeholder="Write a comment..."
+                            required
+                          ></textarea>
+                        </div>
                       </div>
                     </div>
 
-                    {/* <form onSubmit={handleSubmit} className="mb-6"> */}
-                    <form className="mb-6">
-                      <div className="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-300 dark:bg-gray-800 dark:border-gray-700">
-                        {/* {email === bloggerEmail ? (
-                <input
-                  type="text"
-                  placeholder="Can not comment on own blog"
-                  className="input input-bordered w-full max-w-sm text-xl "
-                  disabled
-                />
-              ) : (
-                <textarea
-                  id="comment"
-                  rows="6"
-                  name="comment"
-                  className="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800"
-                  placeholder="Write a comment..."
-                  required
-                ></textarea>
-              )} */}
-                        <textarea
-                          id="comment"
-                          rows="6"
-                          name="comment"
-                          className="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800"
-                          placeholder="Write a comment..."
-                          required
-                        ></textarea>
-                      </div>
-                    </form>
-                  </div>
-
-                  <div className="flex flex-wrap items-center justify-end p-4 shrink-0 text-blue-gray-500 gap-3">
-                    <button
-                      onClick={handleOpen}
-                      data-ripple-dark="true"
-                      data-dialog-close="true"
-                      className="px-6 py-3 mr-1 font-sans text-xs font-bold text-red-500 uppercase transition-all rounded-lg middle none center hover:bg-red-500/10 active:bg-red-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                    >
-                      Cancel
-                    </button>
-                    <button
-                      data-ripple-light="true"
-                      data-dialog-close="true"
-                      className="middle none center rounded-lg bg-gradient-to-tr from-green-600 to-green-400 py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-green-500/20 transition-all hover:shadow-lg hover:shadow-green-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                    >
-                      Submit
-                    </button>
-                  </div>
+                    <div className="flex flex-wrap items-center justify-end p-4 shrink-0 text-blue-gray-500 gap-3">
+                      <button
+                        onClick={handleOpen}
+                        data-ripple-dark="true"
+                        data-dialog-close="true"
+                        className="px-6 py-3 mr-1 font-sans text-xs font-bold text-red-500 uppercase transition-all rounded-lg middle none center hover:bg-red-500/10 active:bg-red-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        type="submit"
+                        data-ripple-light="true"
+                        data-dialog-close="true"
+                        className="middle none center rounded-lg bg-gradient-to-tr from-green-600 to-green-400 py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-green-500/20 transition-all hover:shadow-lg hover:shadow-green-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                      >
+                        Submit
+                      </button>
+                      <Toaster position="top-right" />
+                    </div>
+                  </form>
                 </Dialog>
               </div>
             </div>
