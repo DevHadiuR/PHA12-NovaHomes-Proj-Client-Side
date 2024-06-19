@@ -9,6 +9,8 @@ import Swal from "sweetalert2";
 const imgBB_api =
   "https://api.imgbb.com/1/upload?key=667d80a3b99faf5238f607dc5cc13485";
 
+//   enabled: !loading && !!user?.email && !!id,
+
 const AgentUpdateProperty = () => {
   const { id } = useParams();
   const { user } = useAuth();
@@ -16,7 +18,7 @@ const AgentUpdateProperty = () => {
   const axiosSecure = useAxiosSecure();
   const axiosPublic = useAxiosPublic();
 
-  const { data: property = [] } = useQuery({
+  const { data: property = [], isLoading } = useQuery({
     queryKey: ["perPropertyById"],
     queryFn: async () => {
       const res = await axiosSecure.get(`/propertiesById/${id}`);
@@ -37,7 +39,7 @@ const AgentUpdateProperty = () => {
   const { mutate } = useMutation({
     mutationFn: (updateData) => {
       axiosSecure
-        .put(`/allProperties/${id}`, updateData)
+        .patch(`/allProperties/${id}`, updateData)
         .then((value) => {
           const data = value.data;
           console.log(data);
@@ -69,9 +71,10 @@ const AgentUpdateProperty = () => {
     },
   });
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (submitData) => {
+    console.log("this is the submit data ", submitData);
     const imgFile = {
-      image: data.propertyImage[0],
+      image: submitData.propertyImage[0],
     };
     const res = await axiosPublic.post(imgBB_api, imgFile, {
       headers: {
@@ -80,18 +83,20 @@ const AgentUpdateProperty = () => {
     });
 
     const updateData = {
-      propertyTitle: data.propertyTitle,
-      propertyLocation: data.propertyLocation,
+      propertyTitle: submitData.propertyTitle,
+      propertyLocation: submitData.propertyLocation,
       propertyImage: res.data.data.display_url,
-      agentName: data.agentName,
-      agentImage: data.agentImage,
-      agentEmail: data.agentEmail,
-      minPrice: parseFloat(data.minPrice),
-      maxPrice: parseFloat(data.maxPrice),
+
+      minPrice: parseFloat(submitData.minPrice),
+      maxPrice: parseFloat(submitData.maxPrice),
     };
 
     mutate(updateData);
   };
+
+  if (isLoading) {
+    return <p className="text-xl text-center mt-20">Loading....</p>;
+  }
 
   return (
     <section className="w-full">
@@ -248,7 +253,7 @@ const AgentUpdateProperty = () => {
                   <input
                     placeholder="Min"
                     name="minPrice"
-                    defaultValue={minPrice}
+                    defaultValue={property?.minPrice}
                     type="number"
                     {...register("minPrice", { required: false })}
                     className="py-3 text-xl border border-gray-300 rounded-l px-3 w-[50%] lg:w-full"
@@ -261,7 +266,7 @@ const AgentUpdateProperty = () => {
                   <input
                     placeholder="Max"
                     name="maxPrice"
-                    defaultValue={maxPrice}
+                    defaultValue={property?.maxPrice}
                     type="number"
                     {...register("maxPrice", { required: false })}
                     className="py-3 text-xl border border-gray-300 rounded-r px-3 w-[50%] lg:w-full"

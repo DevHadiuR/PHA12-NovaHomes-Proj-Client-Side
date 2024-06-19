@@ -84,12 +84,24 @@ const PropertyCard = ({ property, idx, handlePropertyDelete }) => {
             {agentMyAddedPropertyLocation && (
               <>
                 {verificationStatus ? (
-                  <span
-                    className={`px-3 py-2 mb-5 rounded-full
+                  <>
+                    {verificationStatus === "Verified" && (
+                      <span
+                        className={`px-3 py-2 mb-5 rounded-full
               text-green-600 bg-green-100/90 `}
-                  >
-                    {verificationStatus}
-                  </span>
+                      >
+                        {verificationStatus}
+                      </span>
+                    )}
+                    {verificationStatus === "Rejected" && (
+                      <span
+                        className={`px-3 py-2 mb-5 rounded-full
+              text-red-600 bg-red-100/90 `}
+                      >
+                        {verificationStatus}
+                      </span>
+                    )}
+                  </>
                 ) : (
                   <span
                     className={`px-3 py-2 mb-5 rounded-full
