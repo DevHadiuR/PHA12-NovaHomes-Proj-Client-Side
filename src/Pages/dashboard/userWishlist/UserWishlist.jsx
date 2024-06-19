@@ -1,9 +1,10 @@
 import DynamicTitleDesc from "../../../Shared/dynamicTitleDesc/DynamicTitleDesc";
 import PropertyCard from "../../../Shared/propertyCard/PropertyCard";
-import useAllProperties from "../../../hook/useAllProperties";
+
+import useUserAllWishlistByEmail from "../../../hook/useUserAllWishlistByEmail";
 
 const UserWishlist = () => {
-  const { allProperties } = useAllProperties();
+  const { allUserWishlistByEmail } = useUserAllWishlistByEmail();
 
   return (
     <section>
@@ -18,7 +19,7 @@ const UserWishlist = () => {
 
       {/* load here all the wishlist */}
       <div className="w-[95%] mx-auto">
-        {allProperties.map((property, idx) => (
+        {allUserWishlistByEmail.map((property, idx) => (
           <PropertyCard key={idx} property={property} idx={idx} />
         ))}
       </div>
