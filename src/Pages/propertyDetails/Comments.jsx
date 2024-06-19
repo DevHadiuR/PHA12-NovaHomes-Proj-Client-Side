@@ -6,6 +6,7 @@ import useAuth from "../../hook/useAuth";
 import { useMutation, useQuery } from "@tanstack/react-query";
 // import { toast } from "react-toastify";
 import toast, { Toaster } from "react-hot-toast";
+import Swal from "sweetalert2";
 
 const Comments = ({ userEmail, agentEmail, propertyId }) => {
   const [open, setOpen] = useState(false);
@@ -66,6 +67,42 @@ const Comments = ({ userEmail, agentEmail, propertyId }) => {
     return data;
   };
 
+  // handle delete review
+  const handleReviewDelete = (id, reviewerEmail) => {
+    console.log(id, reviewerEmail);
+
+    if (reviewerEmail !== email) {
+      toast.error("Cannot Delete Others Comment!");
+      return;
+    }
+
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.delete(`/allReviews/${id}`).then((data) => {
+          const value = data.data;
+
+          if (value.deletedCount > 0) {
+            refetch();
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your Review has been deleted.",
+              icon: "success",
+            });
+          }
+          console.log(value);
+        });
+      }
+    });
+  };
+
   return (
     <div className="mt-40">
       {/* comment section */}
@@ -78,13 +115,7 @@ const Comments = ({ userEmail, agentEmail, propertyId }) => {
                 ({allReviews.length}) Reviews
               </h2>
             </div>
-            {/* {bloggerEmail !== email && (
-              <div className="flex justify-end my-6">
-                <Button type="submit" gradientDuoTone="purpleToBlue" pill>
-                  Comment
-                </Button>
-              </div>
-            )} */}
+
             <div className="my-6">
               {userEmail === agentEmail ? (
                 <Button
@@ -176,38 +207,6 @@ const Comments = ({ userEmail, agentEmail, propertyId }) => {
           {/* 2nd part */}
           <div>
             {/* user comments */}
-            {/* {comments.map((comment) => (
-            <article
-              key={comment._id}
-              className="p-6 mb-3 text-base bg-white border-t border-gray-300 dark:border-gray-700 dark:bg-gray-900"
-            >
-              <footer className="flex justify-between items-center mb-2">
-                <div className="flex items-center">
-                  <p className="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white font-semibold">
-                    <img
-                      referrerPolicy="no-referrer"
-                      className="mr-2 w-10 h-10 rounded-full"
-                      src={comment.photoURL}
-                      alt="Bonnie Green"
-                    />
-                    {comment.displayName}
-                  </p>
-                </div>
-                <div>
-                  <button
-                    onClick={() =>
-                      handleCommentDelete(comment._id, comment.commenterEmail)
-                    }
-                  >
-                    <RiDeleteBin6Line className="text-2xl" />
-                  </button>
-                </div>
-              </footer>
-              <p className="text-gray-500 dark:text-gray-400 break-all">
-                {comment.userComment}
-              </p>
-            </article>
-          ))} */}
 
             {allReviews.map((review) => (
               <article
@@ -226,7 +225,13 @@ const Comments = ({ userEmail, agentEmail, propertyId }) => {
                       {review.reviewerName}
                     </p>
                   </div>
-                  <div>
+                  <div
+                    onClick={() =>
+                      handleReviewDelete(review._id, review.reviewerEmail)
+                    }
+                    className="hover:bg-red-400 p-1 px-2
+                  pt-2 hover:text-white rounded-lg transition-all cursor-pointer "
+                  >
                     <button>
                       <RiDeleteBin6Line className="text-2xl" />
                     </button>
