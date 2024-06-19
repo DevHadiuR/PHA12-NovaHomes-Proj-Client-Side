@@ -9,10 +9,11 @@ import {
 } from "@material-tailwind/react";
 
 import { Link } from "react-router-dom";
-import useAllProperties from "../../../hook/useAllProperties";
+
+import useAllVerifiedProperties from "../../../hook/useAllVerifiedProperties";
 
 const Advertisement = () => {
-  const { allProperties } = useAllProperties();
+  const { allAdminVerifiedProperites } = useAllVerifiedProperties();
 
   return (
     <div>
@@ -28,7 +29,7 @@ const Advertisement = () => {
       {/* 6 advertisement cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {/* card */}
-        {allProperties.slice(0, 6).map((property, idx) => (
+        {allAdminVerifiedProperites.slice(0, 6).map((property, idx) => (
           <Card key={idx} className="mt-10 ">
             <CardHeader color="blue-gray" className="relative overflow-hidden">
               <img

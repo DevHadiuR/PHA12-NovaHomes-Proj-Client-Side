@@ -177,7 +177,7 @@ const AdminManageProperty = () => {
                           <span>${minPrice}</span> - <span>${maxPrice}</span>
                         </Typography>
                       </td>
-                      <td onClick={() => handleVerify(_id)} className={classes}>
+                      <td className={classes}>
                         {verificationStatus === "Rejected" ? (
                           <p className="text-base font-bold text-red-600 bg-red-100/90 text-center rounded-full px-3">
                             Rejected
@@ -195,13 +195,16 @@ const AdminManageProperty = () => {
                                 color="green"
                                 className="font-normal flex justify-center"
                               >
-                                <FaCheckSquare className="text-2xl md:text-3xl hover:scale-125 transition-all cursor-pointer" />
+                                <FaCheckSquare
+                                  onClick={() => handleVerify(_id)}
+                                  className="text-2xl md:text-3xl hover:scale-125 transition-all cursor-pointer"
+                                />
                               </Typography>
                             )}
                           </>
                         )}
                       </td>
-                      <td onClick={() => handleReject(_id)} className={classes}>
+                      <td className={classes}>
                         {verificationStatus === "Verified" ? (
                           <Typography className="flex justify-center">
                             <p className="text-base font-bold text-green-600 bg-green-100/90 text-center rounded-full px-3">
@@ -219,7 +222,10 @@ const AdminManageProperty = () => {
                                 color="red"
                                 className="font-normal flex justify-center"
                               >
-                                <IoIosCloseCircle className="text-3xl md:text-4xl hover:scale-125 transition-all cursor-pointer" />
+                                <IoIosCloseCircle
+                                  onClick={() => handleReject(_id)}
+                                  className="text-3xl md:text-4xl hover:scale-125 transition-all cursor-pointer"
+                                />
                               </Typography>
                             )}
                           </>
