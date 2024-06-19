@@ -35,6 +35,7 @@ const PropertyDetails = () => {
     agentName,
     agentEmail,
     agentImage,
+    propertyShortDescription,
   } = property || {};
 
   if (isLoading) {
@@ -249,6 +250,8 @@ const PropertyDetails = () => {
         {/* users comments div */}
         <div>
           <Comments
+            propertyTitle={propertyTitle}
+            propertyShortDescription={propertyShortDescription}
             propertyId={id}
             userEmail={user?.email}
             agentEmail={agentEmail}

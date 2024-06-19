@@ -48,7 +48,7 @@ const LatestReviews = () => {
                 </div>
 
                 <p className="text-xl font-semibold  py-3 text-center">
-                  {review.propertyDescription}
+                  {review.propertyShortDescription}
                 </p>
 
                 <p className="text-xl font-serif py-5 text-center">

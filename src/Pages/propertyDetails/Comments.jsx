@@ -9,7 +9,13 @@ import toast, { Toaster } from "react-hot-toast";
 import Swal from "sweetalert2";
 import useRole from "../../hook/useRole";
 
-const Comments = ({ userEmail, agentEmail, propertyId }) => {
+const Comments = ({
+  userEmail,
+  agentEmail,
+  propertyId,
+  propertyTitle,
+  propertyShortDescription,
+}) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
   const { userRole } = useRole();
@@ -17,6 +23,35 @@ const Comments = ({ userEmail, agentEmail, propertyId }) => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
   const { displayName, photoURL, email } = user || {};
+
+  const now = new Date();
+  const options = {
+    timeZone: "Asia/Dhaka",
+    year: "numeric",
+    month: "long",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: true,
+  };
+  const formatter = new Intl.DateTimeFormat("en-US", options);
+  const [
+    { value: month },
+    ,
+    { value: day },
+    ,
+    { value: year },
+    ,
+    { value: hour },
+    ,
+    { value: minute },
+    ,
+    { value: second },
+    ,
+    { value: dayPeriod },
+  ] = formatter.formatToParts(now);
+  const reviewTime = `${month} ${day}, ${year}, ${hour}:${minute}:${second} ${dayPeriod}`;
 
   //   using tanstack for post data
   const { mutate } = useMutation({
@@ -51,6 +86,9 @@ const Comments = ({ userEmail, agentEmail, propertyId }) => {
       reviewerName: displayName,
       agentEmail,
       propertyId,
+      propertyTitle,
+      propertyShortDescription,
+      reviewTime,
     };
 
     mutate(reviewData);
