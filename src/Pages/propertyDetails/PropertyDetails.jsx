@@ -3,10 +3,16 @@ import Comments from "./Comments";
 import { useParams } from "react-router-dom";
 import useAxiosSecure from "../../hook/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
+import useAuth from "../../hook/useAuth";
+import useAxiosPublic from "../../hook/useAxiosPublic";
+import Swal from "sweetalert2";
+import { toast } from "react-toastify";
 
 const PropertyDetails = () => {
+  const { user } = useAuth();
   const { id } = useParams();
   const axiosSecure = useAxiosSecure();
+  const axiosPublic = useAxiosPublic();
 
   const { data: property = [], isLoading } = useQuery({
     queryKey: ["perPropertyById"],
@@ -32,6 +38,72 @@ const PropertyDetails = () => {
   if (isLoading) {
     return <p className="text-xl text-center mt-20">Loading..</p>;
   }
+
+  const handleWishlistBtn = (wishInfo) => {
+    const wishlistInfo = {
+      propertyTitle: wishInfo.propertyTitle,
+      propertyLocation: wishInfo.propertyLocation,
+      maxPrice: wishInfo.maxPrice,
+      minPrice: wishInfo.minPrice,
+      propertyImage: wishInfo.propertyImage,
+      verificationStatus: wishInfo.verificationStatus,
+      propertyDescription: wishInfo.propertyDescription,
+      propertyShortDescription: wishInfo.propertyShortDescription,
+      agentName: wishInfo.agentName,
+      agentEmail: wishInfo.agentEmail,
+      agentImage: wishInfo.agentImage,
+      propertyId: wishInfo._id,
+      wishlistUserEmail: user?.email,
+    };
+
+    Swal.fire({
+      title: "You want to add this to your Wishlist?",
+      // text: "You want to add this to your Wishlist?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Add to Wishlist!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosPublic
+          .post("/allWishlist", wishlistInfo)
+          .then((res) => {
+            const result = res.data;
+            if (result.insertedId) {
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Successfully added to your Wishlist!",
+                showConfirmButton: false,
+                timer: 2000,
+              });
+            }
+          })
+          .catch((err) => {
+            if (err.response && err.response.status === 409) {
+              Swal.fire({
+                position: "top-end",
+                icon: "info",
+                title: err.response.data.message,
+                showConfirmButton: false,
+                timer: 2000,
+              });
+            } else {
+              console.log(err);
+              Swal.fire({
+                position: "top-end",
+                icon: "error",
+                title: "An error occurred!",
+                showConfirmButton: false,
+                timer: 2000,
+              });
+            }
+          });
+      }
+    });
+  };
+
   return (
     <section className="bg-[#F7F7F7] text-[#39474F]">
       {/* main div */}
@@ -60,7 +132,12 @@ const PropertyDetails = () => {
         </div>
 
         <div className="flex justify-end my-14">
-          <Button color="amber" size="sm" className="text-sm md:text-base">
+          <Button
+            onClick={() => handleWishlistBtn(property)}
+            color="amber"
+            size="sm"
+            className="text-sm md:text-base"
+          >
             Add TO Wishlist
           </Button>
         </div>
