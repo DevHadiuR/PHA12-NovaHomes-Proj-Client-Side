@@ -170,7 +170,7 @@ const PropertyCard = ({ property, idx, handlePropertyDelete }) => {
             !userPropertyBoughtLocation &&
             !agentMyAddedPropertyLocation && (
               <div className="flex items-center gap-5 pt-4">
-                <Link to="/propertyDetails">
+                <Link to={`/propertyDetails/${_id}`}>
                   <Button outline color="amber">
                     Details
                   </Button>

@@ -1,7 +1,37 @@
 import { Button } from "@material-tailwind/react";
 import Comments from "./Comments";
+import { useParams } from "react-router-dom";
+import useAxiosSecure from "../../hook/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
 
 const PropertyDetails = () => {
+  const { id } = useParams();
+  const axiosSecure = useAxiosSecure();
+
+  const { data: property = [], isLoading } = useQuery({
+    queryKey: ["perPropertyById"],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/propertiesById/${id}`);
+      return res.data;
+    },
+  });
+
+  const {
+    propertyTitle,
+    propertyLocation,
+    maxPrice,
+    minPrice,
+    propertyImage,
+    verificationStatus,
+    propertyDescription,
+    agentName,
+    agentEmail,
+    agentImage,
+  } = property || {};
+
+  if (isLoading) {
+    return <p className="text-xl text-center mt-20">Loading..</p>;
+  }
   return (
     <section className="bg-[#F7F7F7] text-[#39474F]">
       {/* main div */}
@@ -9,14 +39,14 @@ const PropertyDetails = () => {
         <div className="hidden lg:block">
           <div className="flex justify-between items-center ">
             <h1 className="text-xl md:text-2xl lg:text-4xl font-semibold text-amber-600">
-              Luxury Apartment Bay View
+              {propertyTitle}
             </h1>
             <h1 className="text-xl md:text-2xl lg:text-4xl font-semibold">
-              $987,000
+              <span>${minPrice}</span> - <span>${maxPrice}</span>
             </h1>
           </div>
           <Button color="green" className="mt-3 rounded-full">
-            Verified
+            {verificationStatus}
           </Button>
         </div>
 
@@ -24,7 +54,7 @@ const PropertyDetails = () => {
         <div className="mt-5">
           <img
             className="h-screen w-full rounded-2xl"
-            src="https://i.ibb.co/dc6DXV9/5.jpg"
+            src={propertyImage}
             alt=""
           />
         </div>
@@ -38,14 +68,14 @@ const PropertyDetails = () => {
         <div className="mt-5 lg:hidden">
           <div className="flex justify-between items-center ">
             <h1 className="text-xl md:text-2xl lg:text-4xl font-semibold text-amber-600">
-              Luxury Apartment Bay View
+              {propertyTitle}
             </h1>
             <h1 className="text-xl md:text-2xl lg:text-4xl font-semibold">
-              $987,000
+              <span>${minPrice}</span> - <span>${maxPrice}</span>
             </h1>
           </div>
           <Button color="green" className="mt-3 rounded-full">
-            Verified
+            {verificationStatus}
           </Button>
         </div>
 
@@ -57,20 +87,7 @@ const PropertyDetails = () => {
             </h1>
 
             <p className="text-lg my-8 pb-8 opacity-90">
-              This exquisite property on Birch Road in North Haverbrook is the
-              epitome of luxury living. With five spacious bedrooms, four
-              bathrooms, and a grand open-plan living area, this home is perfect
-              for large families or those who love to entertain. The gourmet
-              kitchen features high-end appliances, custom cabinetry, and a
-              large island with seating. The master suite is a private oasis,
-              complete with a walk-in closet, a spa-like bathroom with a soaking
-              tub, and a private balcony overlooking the landscaped backyard.
-              The outdoor space includes a large patio, a swimming pool, and a
-              lush garden, providing the perfect setting for outdoor gatherings.
-              Located in a prestigious neighborhood, this home is close to
-              top-rated schools, fine dining, and exclusive shopping venues.
-              This property offers the perfect blend of elegance, comfort, and
-              convenience.
+              {propertyDescription}
             </p>
           </div>
         </div>
@@ -87,9 +104,7 @@ const PropertyDetails = () => {
                 <p className="flex justify-between items-center border-b-2  border-gray-300 pb-8 mb-8  gap-2">
                   <span className="text-xl font-semibold">Property Name</span>
                   <span className="text-3xl">:</span>
-                  <span className="text-lg font-medium">
-                    Luxury Apartment Bay View
-                  </span>
+                  <span className="text-lg font-medium">{propertyTitle}</span>
                 </p>
                 <p className="flex justify-between items-center border-b-2  border-gray-300 pb-8 mb-8  gap-2">
                   <span className="text-xl font-semibold">
@@ -97,7 +112,7 @@ const PropertyDetails = () => {
                   </span>
                   <span className="text-3xl">:</span>
                   <span className="text-lg font-medium">
-                    Luxury Apartment Bay View
+                    {propertyLocation}
                   </span>
                 </p>
                 <p className="flex justify-between items-center border-b-2  border-gray-300 pb-8 mb-8  gap-2">
@@ -106,22 +121,34 @@ const PropertyDetails = () => {
                   </span>
                   <span className="text-3xl">:</span>
                   <span className="text-lg font-medium">
-                    Luxury Apartment Bay View
+                    {verificationStatus}
                   </span>
                 </p>
                 <p className="flex justify-between items-center border-b-2  border-gray-300 pb-8 mb-8  gap-2">
                   <span className="text-xl font-semibold">Price Range</span>
                   <span className="text-3xl">:</span>
                   <span className="text-lg font-medium">
-                    Luxury Apartment Bay View
+                    <span>${minPrice}</span> - <span>${maxPrice}</span>
                   </span>
+                </p>
+                <p className="flex justify-between items-center border-b-2  border-gray-300 pb-8 mb-8  gap-2">
+                  <span className="text-xl font-semibold">Agent Image</span>
+                  <span className="text-3xl">:</span>
+                  <div className="avatar">
+                    <div className="w-12 md:w-14 mask mask-squircle">
+                      <img src={agentImage} />
+                    </div>
+                  </div>
                 </p>
                 <p className="flex justify-between items-center border-b-2  border-gray-300 pb-8 mb-8  gap-2">
                   <span className="text-xl font-semibold">Agent Name</span>
                   <span className="text-3xl">:</span>
-                  <span className="text-lg font-medium">
-                    Luxury Apartment Bay View
-                  </span>
+                  <span className="text-lg font-medium">{agentName}</span>
+                </p>
+                <p className="flex justify-between items-center border-b-2  border-gray-300 pb-8 mb-8  gap-2">
+                  <span className="text-xl font-semibold">Agent Email</span>
+                  <span className="text-3xl">:</span>
+                  <span className="text-lg font-medium">{agentEmail}</span>
                 </p>
               </div>
             </div>

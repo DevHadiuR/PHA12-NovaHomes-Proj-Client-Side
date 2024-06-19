@@ -50,7 +50,7 @@ const Advertisement = () => {
               </Typography>
             </CardBody>
             <CardFooter className="pt-0">
-              <Link to="/propertyDetails">
+              <Link to={`/propertyDetails/${property._id}`}>
                 <Button color="amber" className="text-sm md:text-base">
                   View Details
                 </Button>
