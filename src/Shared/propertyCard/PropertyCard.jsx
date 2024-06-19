@@ -3,7 +3,12 @@ import { RiDeleteBin5Line } from "react-icons/ri";
 import { Link, useLocation } from "react-router-dom";
 import useAuth from "../../hook/useAuth";
 
-const PropertyCard = ({ property, idx, handlePropertyDelete }) => {
+const PropertyCard = ({
+  property,
+  idx,
+  handlePropertyDelete,
+  handleRemoveWishlist,
+}) => {
   const locaiton = useLocation();
   const { user } = useAuth();
 
@@ -34,6 +39,7 @@ const PropertyCard = ({ property, idx, handlePropertyDelete }) => {
     agentImage,
     propertyShortDescription,
     propertyTitle,
+    propertyId,
     _id,
   } = property;
 
@@ -205,6 +211,7 @@ const PropertyCard = ({ property, idx, handlePropertyDelete }) => {
               </a>
 
               <a
+                onClick={() => handleRemoveWishlist(propertyId, user?.email)}
                 href="#_"
                 className="relative rounded  md:px-8 md:py-4 px-3 py-2 overflow-hidden group bg-amber-500  hover:bg-gradient-to-r hover:from-red-500 hover:to-red-400 text-white hover:ring-2 hover:ring-offset-2 hover:ring-red-400 transition-all ease-out duration-300"
               >
