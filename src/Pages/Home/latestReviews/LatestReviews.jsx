@@ -52,7 +52,7 @@ const LatestReviews = () => {
                 </p>
 
                 <p className="text-xl font-serif py-5 text-center">
-                  {review.reviewerReview}
+                  &quot; {review.reviewerReview} &quot;
                 </p>
               </div>
             </SwiperSlide>
