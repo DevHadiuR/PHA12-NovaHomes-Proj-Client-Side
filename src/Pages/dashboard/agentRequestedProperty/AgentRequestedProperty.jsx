@@ -4,6 +4,8 @@ import DynamicTitleDesc from "../../../Shared/dynamicTitleDesc/DynamicTitleDesc"
 import { Card, Typography } from "@material-tailwind/react";
 import { IoIosCloseCircle } from "react-icons/io";
 import useAllOfferedProperties from "../../../hook/useAllOfferedProperties";
+import Swal from "sweetalert2";
+import useAxiosSecure from "../../../hook/useAxiosSecure";
 
 const TABLE_HEAD = [
   "Property Title",
@@ -17,7 +19,69 @@ const TABLE_HEAD = [
 ];
 
 const AgentRequestedProperty = () => {
-  const { allOfferedProperties } = useAllOfferedProperties();
+  const { allOfferedProperties, refetch } = useAllOfferedProperties();
+  const axiosSecure = useAxiosSecure();
+  // handle property offer acceptence
+  const handleOfferAccepted = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You want to Accept this Offer?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Accept It!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure
+          .patch(`/allOfferedProperties/accepted/${id}`)
+          .then((res) => {
+            const result = res.data;
+            if (result.modifiedCount) {
+              refetch();
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "This Offer is Successfully Accepted!",
+                showConfirmButton: false,
+                timer: 2000,
+              });
+            }
+          });
+      }
+    });
+  };
+
+  // handle property offer rejection
+  const handleOfferRejected = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You want to Reject this Offer?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Reject It!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure
+          .patch(`/allOfferedProperties/rejected/${id}`)
+          .then((res) => {
+            const result = res.data;
+            if (result.modifiedCount) {
+              refetch();
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "This Offer is Successfully Rejected!",
+                showConfirmButton: false,
+                timer: 2000,
+              });
+            }
+          });
+      }
+    });
+  };
 
   return (
     <section>
@@ -62,6 +126,7 @@ const AgentRequestedProperty = () => {
                     buyingDate,
                     minOfferPrice,
                     maxOfferPrice,
+                    offerPropertyVerificationStatus,
                   },
                   index
                 ) => {
@@ -129,20 +194,54 @@ const AgentRequestedProperty = () => {
                         </Typography>
                       </td>
                       <td className={classes}>
-                        <Typography
-                          color="green"
-                          className="font-normal flex justify-center"
-                        >
-                          <FaCheckSquare className="text-2xl md:text-3xl hover:scale-125 transition-all cursor-pointer" />
-                        </Typography>
+                        {offerPropertyVerificationStatus === "Rejected" ? (
+                          <p className="text-base font-bold text-red-600 bg-red-100/90 text-center rounded-full px-2">
+                            REJECTED
+                          </p>
+                        ) : (
+                          <>
+                            {offerPropertyVerificationStatus === "Accepted" ? (
+                              <p className="text-base font-bold text-green-600 bg-green-100/90 text-center rounded-full px-2">
+                                ACCEPTED
+                              </p>
+                            ) : (
+                              <Typography
+                                color="green"
+                                className="font-normal flex justify-center"
+                              >
+                                <FaCheckSquare
+                                  onClick={() => handleOfferAccepted(_id)}
+                                  className="text-2xl md:text-3xl hover:scale-125 transition-all cursor-pointer"
+                                />
+                              </Typography>
+                            )}
+                          </>
+                        )}
                       </td>
                       <td className={classes}>
-                        <Typography
-                          color="red"
-                          className="font-normal flex justify-center"
-                        >
-                          <IoIosCloseCircle className="text-3xl md:text-4xl hover:scale-125 transition-all cursor-pointer" />
-                        </Typography>
+                        {offerPropertyVerificationStatus === "Accepted" ? (
+                          <p className="text-base font-bold text-green-600 bg-green-100/90 text-center rounded-full px-2">
+                            ACCEPTED
+                          </p>
+                        ) : (
+                          <>
+                            {offerPropertyVerificationStatus === "Rejected" ? (
+                              <p className="text-base font-bold text-red-600 bg-red-100/90 text-center rounded-full px-2">
+                                REJECTED
+                              </p>
+                            ) : (
+                              <Typography
+                                color="red"
+                                className="font-normal flex justify-center"
+                              >
+                                <IoIosCloseCircle
+                                  onClick={() => handleOfferRejected(_id)}
+                                  className="text-3xl md:text-4xl hover:scale-125 transition-all cursor-pointer"
+                                />
+                              </Typography>
+                            )}
+                          </>
+                        )}
                       </td>
                     </tr>
                   );
