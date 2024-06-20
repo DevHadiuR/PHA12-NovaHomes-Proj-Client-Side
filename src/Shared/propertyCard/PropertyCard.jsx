@@ -129,9 +129,17 @@ const PropertyCard = ({
               </>
             )}
 
-            <p className="text-lg text-white  md:text-xl font-bold md:text-[#39474F]">
-              <span>${minOfferPrice}</span> - <span>${maxOfferPrice}</span>
-            </p>
+            {userPropertyBoughtLocation && (
+              <p className="text-lg text-white  md:text-xl font-bold md:text-[#39474F]">
+                <span>${minOfferPrice}</span> - <span>${maxOfferPrice}</span>
+              </p>
+            )}
+
+            {wishlistLocaiton && (
+              <p className="text-lg text-white  md:text-xl font-bold md:text-[#39474F]">
+                <span>${minPrice}</span> - <span>${maxPrice}</span>
+              </p>
+            )}
           </div>
           <h1 className="text-3xl text-white opacity-90 md:text-black md:opacity-100 font-semibold ">
             {propertyTitle}
