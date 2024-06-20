@@ -19,6 +19,7 @@ import AdminManageProperty from "../../Pages/dashboard/adminManageProperty/Admin
 import AdminManageUsers from "../../Pages/dashboard/adminManageUsers/AdminManageUsers";
 import AdminManageReviews from "../../Pages/dashboard/adminManageReviews/AdminManageReviews";
 import AgentUpdateProperty from "../../Pages/dashboard/agentUpdateProperty/AgentUpdateProperty";
+import UserMakeAnOfferBtn from "../../Pages/dashboard/userMakeAnOfferBtn/UserMakeAnOfferBtn";
 
 export const router = createBrowserRouter([
   {
@@ -59,6 +60,10 @@ export const router = createBrowserRouter([
       {
         path: "userWishlist",
         element: <UserWishlist></UserWishlist>,
+      },
+      {
+        path: "userMakeAnOfferBtn/:id",
+        element: <UserMakeAnOfferBtn></UserMakeAnOfferBtn>,
       },
       {
         path: "userPropertyBought",
