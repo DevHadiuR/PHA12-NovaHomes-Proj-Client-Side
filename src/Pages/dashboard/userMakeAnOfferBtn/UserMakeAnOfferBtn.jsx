@@ -143,6 +143,7 @@ const UserMakeAnOfferBtn = () => {
               showConfirmButton: false,
               timer: 2000,
             });
+            reset();
           }
         });
       }

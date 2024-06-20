@@ -1,9 +1,10 @@
 import DynamicTitleDesc from "../../../Shared/dynamicTitleDesc/DynamicTitleDesc";
 import PropertyCard from "../../../Shared/propertyCard/PropertyCard";
-import useAllProperties from "../../../hook/useAllProperties";
+import useAllOfferedPropertiesByEmail from "../../../hook/useAllOfferedPropertiesByEmail";
 
 const UserPropertyBought = () => {
-  const { allProperties } = useAllProperties();
+  const { allOfferedPropertiesByEmail } = useAllOfferedPropertiesByEmail();
+
   return (
     <section>
       <>
@@ -18,7 +19,7 @@ const UserPropertyBought = () => {
       {/* all the properties that the user had offered will show here */}
       <div>
         <div className="w-[95%] mx-auto">
-          {allProperties.map((property, idx) => (
+          {allOfferedPropertiesByEmail.map((property, idx) => (
             <PropertyCard key={idx} property={property} idx={idx} />
           ))}
         </div>

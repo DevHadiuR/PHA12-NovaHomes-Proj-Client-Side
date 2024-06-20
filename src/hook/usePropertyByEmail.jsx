@@ -4,10 +4,10 @@ import useAuth from "./useAuth";
 
 const usePropertyByEmail = () => {
   const axiosSecure = useAxiosSecure();
-  const { user, loading } = useAuth();
+  const { user, loader } = useAuth();
 
   const { data: allPropertiesByEmail = [], refetch } = useQuery({
-    enabled: !loading && !!user?.email,
+    enabled: !loader && !!user?.email,
     queryKey: ["allPropertiesByEmail", user?.email],
     queryFn: async () => {
       const res = await axiosSecure.get(`/allProperties/${user?.email}`);
