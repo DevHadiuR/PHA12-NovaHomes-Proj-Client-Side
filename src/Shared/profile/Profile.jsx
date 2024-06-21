@@ -33,13 +33,15 @@ const Profile = () => {
         </a>
       </div>
 
-      <div className="flex flex-col md:flex-row gap-5 lg:gap-0 justify-between w-[95%] md:w-[90%] mx-auto mt-10 shadow-lg bg-white py-10 px-5 md:px-10 rounded-3xl md:rounded-full">
-        <div className="bg-primary text-white text-2xl font-bold px-8 py-2 rounded-full">
-          <span>Email : </span>
-          <span>{email}</span>
+      <div className="flex flex-col md:flex-row gap-5 lg:gap-3 justify-between w-[95%] md:w-[90%] mx-auto mt-10 shadow-lg bg-white py-10 px-5 md:px-10 rounded-3xl md:rounded-full">
+        <div className="bg-primary text-white text-2xl font-bold px-8 py-2 rounded-full ">
+          <span>Email </span>
+          <span> : </span>
+          <span className="">{email}</span>
         </div>
         <div className="bg-secondary text-white text-2xl font-bold px-8 py-2 rounded-full">
-          <span>Contact :</span>
+          <span>Contact</span>
+          <span>:</span>
           <span>019999999</span>
         </div>
 

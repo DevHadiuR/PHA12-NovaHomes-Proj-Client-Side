@@ -124,8 +124,7 @@ const AdminManageUsers = () => {
       confirmButtonText: "Yes, Delete Him!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosSecure.delete(`/allUsers/${id}`)
-        .then((res) => {
+        axiosSecure.delete(`/allUsers/${id}`).then((res) => {
           const result = res.data;
           if (result.deletedCount > 0) {
             refetch();
