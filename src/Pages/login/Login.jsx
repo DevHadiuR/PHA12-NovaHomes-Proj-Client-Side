@@ -5,7 +5,7 @@ import { FaGithub, FaTwitter } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { IoMdEyeOff } from "react-icons/io";
 import { IoEye } from "react-icons/io5";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../hook/useAuth";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../../hook/useAxiosPublic";
@@ -13,6 +13,10 @@ import useAxiosPublic from "../../hook/useAxiosPublic";
 const Login = () => {
   const [showPass, setShowPass] = useState(false);
   const navigate = useNavigate();
+
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+
   const { loginUser, googleProvider, gitHubProvider, twitterProvider } =
     useAuth();
   const axiosPublic = useAxiosPublic();
@@ -43,7 +47,7 @@ const Login = () => {
           icon: "success",
         });
 
-        navigate("/");
+        navigate(from, { replace: true });
       })
       .catch(() => {
         Swal.fire({
@@ -78,7 +82,7 @@ const Login = () => {
               icon: "success",
             });
 
-            navigate("/");
+            navigate(from, { replace: true });
           })
           .catch((err) => console.log(err));
       })
@@ -113,7 +117,7 @@ const Login = () => {
               icon: "success",
             });
 
-            navigate("/");
+            navigate(from, { replace: true });
           })
           .catch((err) => console.log(err));
       })
@@ -148,7 +152,7 @@ const Login = () => {
               icon: "success",
             });
 
-            navigate("/");
+            navigate(from, { replace: true });
           })
           .catch((err) => console.log(err));
       })

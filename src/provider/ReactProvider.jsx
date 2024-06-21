@@ -14,6 +14,7 @@ import {
 // import auth from "../../firebase/firebase.config";
 // import auth from "../firebase/Firebase.config";
 import auth from "../firebase/firebase.config";
+import useAxiosPublic from "../hook/useAxiosPublic";
 
 const googProvider = new GoogleAuthProvider();
 const gitProvider = new GithubAuthProvider();
@@ -24,6 +25,7 @@ export const ProjectContext = createContext(null);
 const ReactProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loader, setLoader] = useState(true);
+  const axiosPublic = useAxiosPublic();
 
   const createUser = (email, password) => {
     setLoader(true);
@@ -46,13 +48,29 @@ const ReactProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      setLoader(false);
+      if (currentUser) {
+        // get token and store in client site
+        const userInfo = {
+          email: currentUser.email,
+        };
+        axiosPublic.post("/jwt", userInfo).then((res) => {
+          console.log(res.data);
+          if (res.data.token) {
+            localStorage.setItem("access-token", res.data.token);
+            setLoader(false);
+          }
+        });
+      } else {
+        // remove token(if token stored in the client site)
+        localStorage.removeItem("access-token");
+        setLoader(false);
+      }
     });
 
     return () => {
       unsubscribe();
     };
-  }, []);
+  }, [axiosPublic]);
 
   const logoutUser = async () => {
     setLoader(true);
@@ -85,7 +103,7 @@ const ReactProvider = ({ children }) => {
     loader,
     setUser,
     updateUser,
-  }; 
+  };
 
   return (
     <ProjectContext.Provider value={projectInfo}>

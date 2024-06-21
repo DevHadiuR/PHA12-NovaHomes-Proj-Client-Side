@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { IoMdEyeOff } from "react-icons/io";
 import { IoEye } from "react-icons/io5";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Swal from "sweetalert2";
@@ -16,6 +16,8 @@ const Register = () => {
   const [showPass, setShowPass] = useState(false);
   const { createUser, setUser, updateUser } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   const axiosPublic = useAxiosPublic();
 
   const {
@@ -96,7 +98,7 @@ const Register = () => {
                     icon: "info",
                     title: data.message,
                   });
-                  navigate("/login");
+                  navigate(from, { replace: true });
                 }
 
                 if (data.insertedId) {
