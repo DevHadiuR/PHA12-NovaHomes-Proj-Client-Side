@@ -3,7 +3,12 @@ import PropertyCard from "../../../Shared/propertyCard/PropertyCard";
 import useAllOfferedPropertiesByEmail from "../../../hook/useAllOfferedPropertiesByEmail";
 
 const UserPropertyBought = () => {
-  const { allOfferedPropertiesByEmail } = useAllOfferedPropertiesByEmail();
+  const { allOfferedPropertiesByEmail, isLoading } =
+    useAllOfferedPropertiesByEmail();
+
+  if (isLoading) {
+    return <p className="text-xl mt-20 text-center">loading....</p>;
+  }
 
   return (
     <section>

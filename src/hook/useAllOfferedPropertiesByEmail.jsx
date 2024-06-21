@@ -6,7 +6,7 @@ const useAllOfferedPropertiesByEmail = () => {
   const axiosSecure = useAxiosSecure();
   const { user, loader } = useAuth();
 
-  const { data: allOfferedPropertiesByEmail = [], refetch } = useQuery({
+  const { data: allOfferedPropertiesByEmail = [], refetch , isLoading } = useQuery({
     enabled: !loader && !!user?.email,
     queryKey: ["allOfferedPropertiesByEmail", user?.email],
     queryFn: async () => {
@@ -17,7 +17,7 @@ const useAllOfferedPropertiesByEmail = () => {
 
   
 
-  return { allOfferedPropertiesByEmail, refetch };
+  return { allOfferedPropertiesByEmail, refetch , isLoading};
 };
 
 export default useAllOfferedPropertiesByEmail;

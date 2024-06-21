@@ -44,6 +44,7 @@ const PropertyCard = ({
     minOfferPrice,
     maxOfferPrice,
     offerPropertyVerificationStatus,
+    transactionId,
     offerPrice,
   } = property;
 
@@ -83,6 +84,14 @@ const PropertyCard = ({
                       <span
                         className={`px-3 py-2 mb-5 rounded-full
                text-green-600 bg-green-100/90 `}
+                      >
+                        {offerPropertyVerificationStatus}
+                      </span>
+                    )}
+                    {offerPropertyVerificationStatus === "Bought" && (
+                      <span
+                        className={`px-3 py-2 mb-5 rounded-full
+               text-purple-600 bg-purple-100/90 `}
                       >
                         {offerPropertyVerificationStatus}
                       </span>
@@ -295,6 +304,15 @@ const PropertyCard = ({
                     </a>
                   </Link>
                 </div>
+              )}
+              {offerPropertyVerificationStatus === "Bought" && (
+                <p
+                  className={`px-3 py-2 mb-5  mt-2 w-[90%] rounded-xl
+      text-cyan-800 bg-cyan-100/90 `}
+                >
+                  <span className="text-lg font-semibold">Transaction ID</span>
+                  {"  "}: <span className="font-medium">{transactionId}</span>
+                </p>
               )}
             </>
           )}
