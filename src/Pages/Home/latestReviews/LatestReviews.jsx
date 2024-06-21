@@ -31,7 +31,7 @@ const LatestReviews = () => {
         <Swiper navigation={true} modules={[Navigation]} className="mySwiper">
           {allReviews.slice(0, 5).map((review, idx) => (
             <SwiperSlide key={idx}>
-              <div className="w-[80%] mx-auto">
+              <div className="w-[80%] mx-auto bg-[#667e8b] py-5 rounded-xl px-2">
                 <div className="flex flex-col justify-center items-center">
                   <div className="avatar">
                     <div className="w-20 mask mask-hexagon">
@@ -42,16 +42,16 @@ const LatestReviews = () => {
                     </div>
                   </div>
 
-                  <h1 className="text-3xl font-semibold text-[#cd9003] text-center">
+                  <h1 className="text-3xl font-semibold text-yellow-300 text-center">
                     {review.reviewerName}
                   </h1>
                 </div>
 
-                <p className="text-xl font-semibold  py-3 text-center">
+                <p className="text-xl font-semibold text-white text-opacity-75 w-[80%]  mx-auto py-3 text-center">
                   {review.propertyShortDescription}
                 </p>
 
-                <p className="text-xl font-serif py-5 text-center">
+                <p className="text-xl text-white font-serif py-5 text-center">
                   &quot; {review.reviewerReview} &quot;
                 </p>
               </div>
