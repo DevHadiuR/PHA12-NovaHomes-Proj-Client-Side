@@ -1,6 +1,9 @@
 import DynamicTitleDesc from "../../../Shared/dynamicTitleDesc/DynamicTitleDesc";
 
 import { Card, Typography } from "@material-tailwind/react";
+import useAxiosSecure from "../../../hook/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
+import useAuth from "../../../hook/useAuth";
 
 const TABLE_HEAD = [
   "Property Title",
@@ -10,35 +13,21 @@ const TABLE_HEAD = [
   "Sold Price",
 ];
 
-const TABLE_ROWS = [
-  {
-    name: "John Michael",
-    job: "Manager",
-    date: "23/04/18",
-  },
-  {
-    name: "Alexa Liras",
-    job: "Developer",
-    date: "23/04/18",
-  },
-  {
-    name: "Laurent Perrier",
-    job: "Executive",
-    date: "19/09/17",
-  },
-  {
-    name: "Michael Levi",
-    job: "Developer",
-    date: "24/12/08",
-  },
-  {
-    name: "Richard Gran",
-    job: "Manager",
-    date: "04/10/21",
-  },
-];
-
 const AgentMySoldProperty = () => {
+  const axiosSecure = useAxiosSecure();
+  const { user, loader } = useAuth();
+
+  const { data: allPaymentsByEmail = [], refetch } = useQuery({
+    enabled: !loader && !!user?.email,
+    queryKey: ["allPaymentsByEmail"],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/allPayments/${user?.email}`);
+      return res.data;
+    },
+  });
+
+  console.log(allPaymentsByEmail);
+
   return (
     <section>
       <>
@@ -71,62 +60,74 @@ const AgentMySoldProperty = () => {
               </tr>
             </thead>
             <tbody>
-              {TABLE_ROWS.map(({ name, job, date }, index) => {
-                const isLast = index === TABLE_ROWS.length - 1;
-                const classes = isLast
-                  ? "p-4"
-                  : "p-4 border-b border-blue-gray-50";
+              {allPaymentsByEmail.map(
+                (
+                  {
+                    propertyTitle,
+                    propertyLocation,
+                    buyerEmail,
+                    buyerName,
+                    soldPrice,
+                    _id,
+                  },
+                  index
+                ) => {
+                  const isLast = index === allPaymentsByEmail.length - 1;
+                  const classes = isLast
+                    ? "p-4"
+                    : "p-4 border-b border-blue-gray-50";
 
-                return (
-                  <tr key={name} className="hover:bg-amber-500">
-                    <td className={classes}>
-                      <Typography
-                        variant="paragraph"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        {name}
-                      </Typography>
-                    </td>
-                    <td className={classes}>
-                      <Typography
-                        variant="paragraph"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        {job}
-                      </Typography>
-                    </td>
-                    <td className={classes}>
-                      <Typography
-                        variant="paragraph"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        {date}
-                      </Typography>
-                    </td>
-                    <td className={classes}>
-                      <Typography
-                        variant="paragraph"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        {date}
-                      </Typography>
-                    </td>
-                    <td className={classes}>
-                      <Typography
-                        variant="paragraph"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        {date}
-                      </Typography>
-                    </td>
-                  </tr>
-                );
-              })}
+                  return (
+                    <tr key={_id} className="hover:bg-amber-500">
+                      <td className={classes}>
+                        <Typography
+                          variant="paragraph"
+                          color="blue-gray"
+                          className="font-normal"
+                        >
+                          {propertyTitle}
+                        </Typography>
+                      </td>
+                      <td className={classes}>
+                        <Typography
+                          variant="paragraph"
+                          color="blue-gray"
+                          className="font-normal"
+                        >
+                          {propertyLocation}
+                        </Typography>
+                      </td>
+                      <td className={classes}>
+                        <Typography
+                          variant="paragraph"
+                          color="blue-gray"
+                          className="font-normal"
+                        >
+                          {buyerEmail}
+                        </Typography>
+                      </td>
+                      <td className={classes}>
+                        <Typography
+                          variant="paragraph"
+                          color="blue-gray"
+                          className="font-normal"
+                        >
+                          {buyerName}
+                        </Typography>
+                      </td>
+                      <td className={classes}>
+                        <Typography
+                          variant="paragraph"
+                          color="blue-gray"
+                          className="font-normal flex justify-center"
+                        >
+                          {soldPrice}
+                        </Typography>
+                      </td>
+                    </tr>
+                  );
+                }
+              )}
             </tbody>
           </table>
         </Card>

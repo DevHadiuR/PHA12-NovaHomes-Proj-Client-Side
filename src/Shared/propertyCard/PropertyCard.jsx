@@ -44,6 +44,7 @@ const PropertyCard = ({
     minOfferPrice,
     maxOfferPrice,
     offerPropertyVerificationStatus,
+    offerPrice,
   } = property;
 
   const imageFirst = idx % 2 === 0;
@@ -155,7 +156,7 @@ const PropertyCard = ({
 
             {userPropertyBoughtLocation && (
               <p className="text-lg text-white  md:text-xl font-bold md:text-[#39474F]">
-                <span>${minOfferPrice}</span> - <span>${maxOfferPrice}</span>
+                <span>${offerPrice}</span>
               </p>
             )}
 
@@ -266,31 +267,33 @@ const PropertyCard = ({
             <>
               {offerPropertyVerificationStatus === "Accepted" && (
                 <div className="mt-4 flex justify-end">
-                  <a
-                    href="#_"
-                    className="relative inline-flex items-center justify-center p-4 md:px-8 md:py-2 px-5 py-2 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out border-2 border-purple-500 rounded-full shadow-md group bg-purple-500 md:bg-transparent"
-                  >
-                    <span className="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-purple-500 group-hover:translate-x-0 ease">
-                      <svg
-                        className="w-6 h-6"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M14 5l7 7m0 0l-7 7m7-7H3"
-                        ></path>
-                      </svg>
-                    </span>
-                    <span className="absolute flex items-center justify-center w-full h-full md:text-purple-500 text-white transition-all duration-300 transform group-hover:translate-x-full ease text-lg font-bold ">
-                      PAY
-                    </span>
-                    <span className="relative invisible">PAY</span>
-                  </a>
+                  <Link to={`/dashboard/userPayment/${propertyId}`}>
+                    <a
+                      href="#_"
+                      className="relative inline-flex items-center justify-center p-4 md:px-8 md:py-2 px-5 py-2 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out border-2 border-purple-500 rounded-full shadow-md group bg-purple-500 md:bg-transparent"
+                    >
+                      <span className="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-purple-500 group-hover:translate-x-0 ease">
+                        <svg
+                          className="w-6 h-6"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M14 5l7 7m0 0l-7 7m7-7H3"
+                          ></path>
+                        </svg>
+                      </span>
+                      <span className="absolute flex items-center justify-center w-full h-full md:text-purple-500 text-white transition-all duration-300 transform group-hover:translate-x-full ease text-lg font-bold ">
+                        PAY
+                      </span>
+                      <span className="relative invisible">PAY</span>
+                    </a>
+                  </Link>
                 </div>
               )}
             </>

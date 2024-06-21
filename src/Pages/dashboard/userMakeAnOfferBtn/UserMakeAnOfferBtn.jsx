@@ -69,6 +69,7 @@ const UserMakeAnOfferBtn = () => {
     agentName,
     agentEmail,
     agentImage,
+    _id,
   } = propertyById || {};
 
   if (isLoading || loader) {
@@ -76,7 +77,7 @@ const UserMakeAnOfferBtn = () => {
   }
 
   const onSubmit = (data) => {
-    if (data.minOfferPrice < minPrice) {
+    if (data.offerPrice < minPrice) {
       Swal.fire({
         position: "top-end",
         icon: "error",
@@ -85,7 +86,7 @@ const UserMakeAnOfferBtn = () => {
         timer: 2000,
       });
       return;
-    } else if (data.maxOfferPrice > maxPrice) {
+    } else if (data.offerPrice > maxPrice) {
       Swal.fire({
         position: "top-end",
         icon: "error",
@@ -94,34 +95,44 @@ const UserMakeAnOfferBtn = () => {
         timer: 2000,
       });
       return;
-    } else if (data.minOfferPrice > maxPrice) {
-      Swal.fire({
-        position: "top-end",
-        icon: "error",
-        title: `Minimum Offer price cannot be greater than maximum price`,
-        showConfirmButton: false,
-        timer: 2000,
-      });
-      return;
-    } else if (data.maxOfferPrice < minPrice) {
-      Swal.fire({
-        position: "top-end",
-        icon: "error",
-        title: `Maximum Offer price cannot be less than minimum price.`,
-        showConfirmButton: false,
-        timer: 2000,
-      });
-      return;
-    } else if (data.minOfferPrice > data.maxOfferPrice) {
-      Swal.fire({
-        position: "top-end",
-        icon: "error",
-        title: `Minimum Offer price cannot be greater than maximum offer price.`,
-        showConfirmButton: false,
-        timer: 2000,
-      });
-      return;
     }
+    // else if (data.offerPrice > maxPrice) {
+    //   Swal.fire({
+    //     position: "top-end",
+    //     icon: "error",
+    //     title: `Minimum Offer price cannot be greater than maximum price`,
+    //     showConfirmButton: false,
+    //     timer: 2000,
+    //   });
+    //   return;
+    // }
+    // else if (data.offerPrice < minPrice) {
+    //   Swal.fire({
+    //     position: "top-end",
+    //     icon: "error",
+    //     title: `Maximum Offer price cannot be less than minimum price.`,
+    //     showConfirmButton: false,
+    //     timer: 2000,
+    //   });
+    //   return;
+    // }
+    // else if (data.minOfferPrice > data.maxOfferPrice) {
+    //   Swal.fire({
+    //     position: "top-end",
+    //     icon: "error",
+    //     title: `Minimum Offer price cannot be greater than maximum offer price.`,
+    //     showConfirmButton: false,
+    //     timer: 2000,
+    //   });
+    //   return;
+    // }
+
+    const offerData = {
+      ...data,
+      propertyId: _id,
+    };
+
+    console.log(offerData);
 
     Swal.fire({
       title: "Are you sure?",
@@ -133,7 +144,7 @@ const UserMakeAnOfferBtn = () => {
       confirmButtonText: "Yes, Make an Offer!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosSecure.post("/allOfferedProperties", data).then((res) => {
+        axiosSecure.post("/allOfferedProperties", offerData).then((res) => {
           const result = res.data;
           if (result.insertedId) {
             Swal.fire({
@@ -394,19 +405,19 @@ const UserMakeAnOfferBtn = () => {
                 </label>
                 <div className="flex gap-3 flex-row lg:flex-col form-control">
                   <input
-                    placeholder="Min Offer Price"
-                    name="minOfferPrice"
-                    defaultValue={minPrice}
+                    placeholder={[minPrice, "-", maxPrice]}
+                    name="offerPrice"
+                    // defaultValue={[minPrice, "-", maxPrice]}
                     type="number"
-                    {...register("minOfferPrice", { required: true })}
+                    {...register("offerPrice", { required: true })}
                     className="py-3 text-xl border border-gray-300 rounded-l px-3 w-[50%] lg:w-full"
                   />
-                  {errors.minOfferPrice && (
+                  {errors.offerPrice && (
                     <span className="text-red-600">
-                      Minimum price is required
+                      Offer price is required
                     </span>
                   )}
-                  <input
+                  {/* <input
                     placeholder="Max Offer Price"
                     name="maxOfferPrice"
                     defaultValue={maxPrice}
@@ -419,7 +430,7 @@ const UserMakeAnOfferBtn = () => {
                     <span className="text-red-600">
                       Maximum price is required
                     </span>
-                  )}
+                  )} */}
                 </div>
               </div>
 

@@ -6,6 +6,8 @@ import { IoIosCloseCircle } from "react-icons/io";
 import useAllOfferedProperties from "../../../hook/useAllOfferedProperties";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../hook/useAxiosSecure";
+import useAllOfferedPropertiesByEmail from "../../../hook/useAllOfferedPropertiesByEmail";
+import useAllOfferedPropertiesByEmailForAgent from "../../../hook/useAllOfferedPropertiesByEmailForAgent";
 
 const TABLE_HEAD = [
   "Property Title",
@@ -19,8 +21,10 @@ const TABLE_HEAD = [
 ];
 
 const AgentRequestedProperty = () => {
-  const { allOfferedProperties, refetch } = useAllOfferedProperties();
+  const { allOfferedPropertiesByEmailForAgent, refetch } =
+    useAllOfferedPropertiesByEmailForAgent();
   const axiosSecure = useAxiosSecure();
+
   // handle property offer acceptence
   const handleOfferAccepted = (id) => {
     Swal.fire({
@@ -115,7 +119,7 @@ const AgentRequestedProperty = () => {
               </tr>
             </thead>
             <tbody>
-              {allOfferedProperties.map(
+              {allOfferedPropertiesByEmailForAgent.map(
                 (
                   {
                     _id,
@@ -124,13 +128,13 @@ const AgentRequestedProperty = () => {
                     buyerName,
                     buyerEmail,
                     buyingDate,
-                    minOfferPrice,
-                    maxOfferPrice,
+                    offerPrice,
                     offerPropertyVerificationStatus,
                   },
                   index
                 ) => {
-                  const isLast = index === allOfferedProperties.length - 1;
+                  const isLast =
+                    index === allOfferedPropertiesByEmailForAgent.length - 1;
                   const classes = isLast
                     ? "p-4"
                     : "p-4 border-b border-blue-gray-50";
@@ -188,9 +192,7 @@ const AgentRequestedProperty = () => {
                           color="blue-gray"
                           className="font-normal"
                         >
-                          <span>${minOfferPrice}</span>
-                          <span> - </span>
-                          <span>${maxOfferPrice}</span>
+                          <span>${offerPrice}</span>
                         </Typography>
                       </td>
                       <td className={classes}>
