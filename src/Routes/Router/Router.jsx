@@ -21,11 +21,13 @@ import AdminManageReviews from "../../Pages/dashboard/adminManageReviews/AdminMa
 import AgentUpdateProperty from "../../Pages/dashboard/agentUpdateProperty/AgentUpdateProperty";
 import UserMakeAnOfferBtn from "../../Pages/dashboard/userMakeAnOfferBtn/UserMakeAnOfferBtn";
 import UserPayment from "../../Pages/dashboard/userPayment/UserPayment";
+import ErrorPage from "../../Shared/errorPage/ErrorPage";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <Root></Root>,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         path: "/",
@@ -52,6 +54,7 @@ export const router = createBrowserRouter([
   {
     path: "dashboard",
     element: <Dashboard></Dashboard>,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       // User Routes
       {
