@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import DynamicTitleDesc from "../../../Shared/dynamicTitleDesc/DynamicTitleDesc";
 import PropertyCard from "../../../Shared/propertyCard/PropertyCard";
 import useAllOfferedPropertiesByEmail from "../../../hook/useAllOfferedPropertiesByEmail";
@@ -12,6 +13,9 @@ const UserPropertyBought = () => {
 
   return (
     <section>
+       <Helmet>
+        <title>NovaHomes | User Bought Property Showing Page</title>
+      </Helmet>
       <>
         <DynamicTitleDesc
           title={"Properties You Have Offered On"}

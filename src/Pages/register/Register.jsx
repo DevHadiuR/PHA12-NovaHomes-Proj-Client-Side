@@ -10,6 +10,7 @@ import Swal from "sweetalert2";
 import "sweetalert2/src/sweetalert2.scss";
 import useAuth from "../../hook/useAuth";
 import useAxiosPublic from "../../hook/useAxiosPublic";
+import { Helmet } from "react-helmet-async";
 // import { updateProfile } from "firebase/auth";
 
 const Register = () => {
@@ -137,6 +138,9 @@ const Register = () => {
 
   return (
     <div className="mx-4 my-14 md:container lg:max-w-6xl lg:mx-auto">
+       <Helmet>
+        <title>NovaHomes | Register Page</title>
+      </Helmet>
       <div>
         <h1 className="text-4xl md:text-6xl lg:text-8xl font-normal text-[#FDB913]">
           REGISTRATION

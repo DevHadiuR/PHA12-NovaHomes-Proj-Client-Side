@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import useAuth from "../../hook/useAuth";
 import useRole from "../../hook/useRole";
 
@@ -11,6 +12,9 @@ const Profile = () => {
 
   return (
     <section>
+       <Helmet>
+        <title>NovaHomes | User Profile Page</title>
+      </Helmet>
       <div className="bg-[#FDB913] h-24 md:h-36  lg:h-44 w-full relative"></div>
       <div className="avatar absolute top-14 md:top-16 lg:top-24 right-1/4 md:right-1/3 border-2 p-1 shadow-xl rounded-full bg-white">
         <div className=" w-24 md:w-40 rounded-full ">

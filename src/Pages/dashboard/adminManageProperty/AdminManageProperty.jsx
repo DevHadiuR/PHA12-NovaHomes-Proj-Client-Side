@@ -7,6 +7,7 @@ import { IoIosCloseCircle } from "react-icons/io";
 import useAllProperties from "../../../hook/useAllProperties";
 import useAxiosSecure from "../../../hook/useAxiosSecure";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 const TABLE_HEAD = [
   "Property Title",
@@ -81,6 +82,9 @@ const AdminManageProperty = () => {
 
   return (
     <section>
+      <Helmet>
+        <title>NovaHomes | Admin Manage Agent Added Properties , Page</title>
+      </Helmet>
       <>
         <DynamicTitleDesc
           title={"Property Verification Control Center"}

@@ -4,6 +4,7 @@ import useAuth from "../../../hook/useAuth";
 import useAxiosPublic from "../../../hook/useAxiosPublic";
 import useAxiosSecure from "../../../hook/useAxiosSecure";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 // import { useState } from "react";
 // import DynamicTitleDesc from "../../../Shared/dynamicTitleDesc/DynamicTitleDesc";
 const imgBB_api =
@@ -82,6 +83,9 @@ const AgentAddProperty = () => {
 
   return (
     <section className="w-full">
+       <Helmet>
+        <title>NovaHomes | Agent Property Adding Page</title>
+      </Helmet>
       <div className="mx-4 my-14">
         <div>
           <h1 className="text-4xl md:text-6xl lg:text-8xl font-normal text-[#FDB913]">

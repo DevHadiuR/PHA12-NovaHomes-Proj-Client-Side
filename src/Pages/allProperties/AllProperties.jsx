@@ -6,6 +6,7 @@ import useAllVerifiedProperties from "../../hook/useAllVerifiedProperties";
 import { Dropdown } from "flowbite-react";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../../hook/useAxiosPublic";
+import { Helmet } from "react-helmet-async";
 
 const AllProperties = () => {
   const { allAdminVerifiedProperites } = useAllVerifiedProperties();
@@ -40,6 +41,9 @@ const AllProperties = () => {
 
   return (
     <section>
+       <Helmet>
+        <title>NovaHomes | All Properties Page</title>
+      </Helmet>
       <div className="md:pt-1 md:pb-10 w-[98%] mx-auto">
         <DynamicTitleDesc
           title={"Explore Verified Properties"}

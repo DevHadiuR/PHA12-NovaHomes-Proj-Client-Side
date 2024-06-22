@@ -4,6 +4,7 @@ import { Card, Typography } from "@material-tailwind/react";
 import useAxiosSecure from "../../../hook/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../hook/useAuth";
+import { Helmet } from "react-helmet-async";
 
 const TABLE_HEAD = [
   "Property Title",
@@ -30,6 +31,9 @@ const AgentMySoldProperty = () => {
 
   return (
     <section>
+      <Helmet>
+        <title>NovaHomes | Agent Sold Property Showing Page</title>
+      </Helmet>
       <>
         <DynamicTitleDesc
           title={"Properties You've Sold"}

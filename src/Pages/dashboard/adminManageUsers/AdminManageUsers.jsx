@@ -7,6 +7,7 @@ import { FaExclamationCircle } from "react-icons/fa";
 import useAxiosSecure from "../../../hook/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 const TABLE_HEAD = [
   "User Name",
   "User Email",
@@ -143,6 +144,9 @@ const AdminManageUsers = () => {
 
   return (
     <section>
+       <Helmet>
+        <title>NovaHomes | Admin Manage Users , Page</title>
+      </Helmet>
       <>
         <DynamicTitleDesc
           title={"User Management Hub"}

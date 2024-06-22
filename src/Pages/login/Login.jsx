@@ -9,6 +9,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../hook/useAuth";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../../hook/useAxiosPublic";
+import { Helmet } from "react-helmet-async";
 
 const Login = () => {
   const [showPass, setShowPass] = useState(false);
@@ -167,6 +168,9 @@ const Login = () => {
 
   return (
     <div className="mx-4 my-14 md:container lg:max-w-6xl lg:mx-auto">
+       <Helmet>
+        <title>NovaHomes | Login Page</title>
+      </Helmet>
       <div>
         <h1 className="text-4xl md:text-6xl lg:text-8xl font-normal text-[#FDB913]">
           YOUR LOG IN

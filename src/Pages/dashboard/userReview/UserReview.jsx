@@ -5,6 +5,7 @@ import useAuth from "../../../hook/useAuth";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hook/useAxiosSecure";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 const UserReview = () => {
   const { user } = useAuth();
@@ -57,6 +58,9 @@ const UserReview = () => {
 
   return (
     <div>
+       <Helmet>
+        <title>NovaHomes | User All Review Showing Page</title>
+      </Helmet>
       <>
         <DynamicTitleDesc
           title={"Feedback on Properties"}

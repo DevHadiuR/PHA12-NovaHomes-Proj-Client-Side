@@ -4,6 +4,7 @@ import PropertyCard from "../../../Shared/propertyCard/PropertyCard";
 
 import useUserAllWishlistByEmail from "../../../hook/useUserAllWishlistByEmail";
 import useAxiosSecure from "../../../hook/useAxiosSecure";
+import { Helmet } from "react-helmet-async";
 
 const UserWishlist = () => {
   const { allUserWishlistByEmail, refetch } = useUserAllWishlistByEmail();
@@ -43,6 +44,9 @@ const UserWishlist = () => {
 
   return (
     <section>
+       <Helmet>
+        <title>NovaHomes | User Wishlist Page</title>
+      </Helmet>
       <>
         <DynamicTitleDesc
           title={"Your Preferred Properties"}

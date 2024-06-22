@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 import useAxiosSecure from "../../../hook/useAxiosSecure";
 import useAllOfferedPropertiesByEmail from "../../../hook/useAllOfferedPropertiesByEmail";
 import useAllOfferedPropertiesByEmailForAgent from "../../../hook/useAllOfferedPropertiesByEmailForAgent";
+import { Helmet } from "react-helmet-async";
 
 const TABLE_HEAD = [
   "Property Title",
@@ -89,6 +90,11 @@ const AgentRequestedProperty = () => {
 
   return (
     <section>
+      <Helmet>
+        <title>
+          NovaHomes | Agent Properties Requested By User , Showing Page
+        </title>
+      </Helmet>
       <>
         <DynamicTitleDesc
           title={"Manage Property Offers"}

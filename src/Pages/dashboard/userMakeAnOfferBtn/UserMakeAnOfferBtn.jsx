@@ -7,6 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 const UserMakeAnOfferBtn = () => {
   const { id } = useParams();
@@ -165,6 +166,9 @@ const UserMakeAnOfferBtn = () => {
 
   return (
     <section className="w-full">
+       <Helmet>
+        <title>NovaHomes | User Offer Making Page</title>
+      </Helmet>
       <div className="mx-4 my-14">
         <div>
           <h1 className="text-4xl md:text-6xl lg:text-8xl font-normal text-[#FDB913]">

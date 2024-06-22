@@ -3,6 +3,7 @@ import DynamicTitleDesc from "../../../Shared/dynamicTitleDesc/DynamicTitleDesc"
 import PropertyCard from "../../../Shared/propertyCard/PropertyCard";
 import useAxiosSecure from "../../../hook/useAxiosSecure";
 import usePropertyByEmail from "../../../hook/usePropertyByEmail";
+import { Helmet } from "react-helmet-async";
 
 const AgentMyAddedProperty = () => {
   const { allPropertiesByEmail, refetch } = usePropertyByEmail();
@@ -40,6 +41,9 @@ const AgentMyAddedProperty = () => {
 
   return (
     <section>
+       <Helmet>
+        <title>NovaHomes | Agent Added Property Showing Page</title>
+      </Helmet>
       <>
         <DynamicTitleDesc
           title={"My Added Properties"}

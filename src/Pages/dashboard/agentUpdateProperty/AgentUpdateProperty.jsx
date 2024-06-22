@@ -6,6 +6,7 @@ import { Button, Input } from "@material-tailwind/react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../../../hook/useAxiosPublic";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 const imgBB_api =
   "https://api.imgbb.com/1/upload?key=667d80a3b99faf5238f607dc5cc13485";
 
@@ -100,6 +101,9 @@ const AgentUpdateProperty = () => {
 
   return (
     <section className="w-full">
+      <Helmet>
+        <title>NovaHomes | Agent Property Update Page</title>
+      </Helmet>
       <div className="mx-4 my-14">
         <div>
           <h1 className="text-4xl md:text-6xl lg:text-8xl font-normal text-[#FDB913]">

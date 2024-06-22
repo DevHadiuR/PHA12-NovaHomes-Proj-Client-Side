@@ -3,6 +3,7 @@ import DynamicTitleDesc from "../../../Shared/dynamicTitleDesc/DynamicTitleDesc"
 import useAllReviews from "../../../hook/useAllReviews";
 import useAxiosSecure from "../../../hook/useAxiosSecure";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 const AdminManageReviews = () => {
   const { allReviews, refetch } = useAllReviews();
@@ -38,6 +39,9 @@ const AdminManageReviews = () => {
 
   return (
     <section>
+      <Helmet>
+        <title>NovaHomes | Admin Manage User Review , Page</title>
+      </Helmet>
       <>
         <DynamicTitleDesc
           title={"Review Management Center"}

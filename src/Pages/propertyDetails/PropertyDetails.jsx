@@ -8,6 +8,7 @@ import useAxiosPublic from "../../hook/useAxiosPublic";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 import useRole from "../../hook/useRole";
+import { Helmet } from "react-helmet-async";
 
 const PropertyDetails = () => {
   const { user } = useAuth();
@@ -109,6 +110,9 @@ const PropertyDetails = () => {
 
   return (
     <section className="bg-[#F7F7F7] text-[#39474F]">
+       <Helmet>
+        <title>NovaHomes | Property Details Page</title>
+      </Helmet>
       {/* main div */}
       <div className="md:pt-14 w-[90%] mx-auto ">
         <div className="hidden lg:block">
