@@ -22,7 +22,7 @@ import { Autoplay, Pagination, Navigation } from "swiper/modules";
 
 const Banner = () => {
   return (
-    <div className="mb-24 z-0">
+    <div className="mb-24 z-0 ">
       <Swiper
         loop={true}
         spaceBetween={30}
@@ -41,7 +41,7 @@ const Banner = () => {
         <SwiperSlide className="">
           {" "}
           <div
-            className="hero min-h-screen"
+            className="hero md:min-h-screen"
             style={{ backgroundImage: `url(${img1})` }}
           >
             <div className="hero-overlay bg-opacity-40"></div>
@@ -64,7 +64,7 @@ const Banner = () => {
         <SwiperSlide>
           {" "}
           <div
-            className="hero min-h-screen"
+            className="hero md:min-h-screen"
             style={{ backgroundImage: `url(${img2})` }}
           >
             <div className="hero-overlay bg-opacity-40"></div>
@@ -87,7 +87,7 @@ const Banner = () => {
         <SwiperSlide>
           {" "}
           <div
-            className="hero min-h-screen"
+            className="hero md:min-h-screen"
             style={{ backgroundImage: `url(${img3})` }}
           >
             <div className="hero-overlay bg-opacity-40"></div>
@@ -110,7 +110,7 @@ const Banner = () => {
         <SwiperSlide>
           {" "}
           <div
-            className="hero min-h-screen"
+            className="hero md:min-h-screen"
             style={{ backgroundImage: `url(${img4})` }}
           >
             <div className="hero-overlay bg-opacity-40"></div>
@@ -132,10 +132,10 @@ const Banner = () => {
         </SwiperSlide>
       </Swiper>
       {/* Custom navigation buttons */}
-      <button className="custom-prev absolute -bottom-40 transform left-10 md:left-24 bg-transparent text-orange-600 md:text-white  border-2 border-gray-300 shadow-lg cursor-pointer btn w-24 h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 rounded-full flex items-center justify-center transition duration-300 ease-in-out z-10 hover:bg-black hover:bg-opacity-30">
+      <button className="custom-prev absolute bottom-0 md:-bottom-40 transform left-10 md:left-24 bg-transparent text-orange-600 md:text-white  border-2 border-gray-300 shadow-lg cursor-pointer btn w-24 h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 rounded-full flex items-center justify-center transition duration-300 ease-in-out z-10 hover:bg-black hover:bg-opacity-30">
         <FontAwesomeIcon icon={faChevronLeft} className="text-xl" />
       </button>
-      <button className="custom-next absolute -bottom-40 transform left-28  md:left-56 bg-transparent text-white  border-2 border-gray-300 shadow-lg cursor-pointer  w-24 h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 rounded-full flex items-center btn justify-center transition duration-300 ease-in-out z-10 hover:bg-black hover:bg-opacity-30">
+      <button className="custom-next absolute bottom-0 md:-bottom-40 transform left-28  md:left-56 bg-transparent text-white  border-2 border-gray-300 shadow-lg cursor-pointer  w-24 h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 rounded-full flex items-center btn justify-center transition duration-300 ease-in-out z-10 hover:bg-black hover:bg-opacity-30">
         <FontAwesomeIcon icon={faChevronRight} className="text-xl" />
       </button>
     </div>

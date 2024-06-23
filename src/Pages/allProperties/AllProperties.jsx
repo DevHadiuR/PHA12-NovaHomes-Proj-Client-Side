@@ -9,39 +9,38 @@ import useAxiosPublic from "../../hook/useAxiosPublic";
 import { Helmet } from "react-helmet-async";
 
 const AllProperties = () => {
-  const { allAdminVerifiedProperites } = useAllVerifiedProperties();
-  // const [search, setSearch] = useState("");
-  // const [searchText, setSearchText] = useState("");
-  // const axiosPublic = useAxiosPublic();
+  const [search, setSearch] = useState("");
+  const [searchText, setSearchText] = useState("");
+  const axiosPublic = useAxiosPublic();
 
-  // // fetch property by locaiton search
-  // const { data: allAdminVerifiedProperites = [], isLoading } = useQuery({
-  //   queryFn: () => getData(),
-  //   queryKey: ["allAdminVerifiedProperites", search],
-  // });
+  // fetch property by locaiton search
+  const { data: allAdminVerifiedProperitesBySearch = [], isLoading } = useQuery(
+    {
+      // enabled: !!search,
+      queryKey: ["allAdminVerifiedProperitesBySearch", search],
+      queryFn: async () => {
+        const res = await axiosPublic(
+          `/allAdminVerifiedProperitesBySearch?&search=${search}`
+        );
+        setSearchText("");
+        return res.data;
+      },
+    }
+  );
 
-  // const getData = async () => {
-  //   const { data } = await axiosPublic(
-  //     `/allAdminVerifiedProperitesBySearch?&search=${search}`
-  //   );
-  //   setSearchText("");
+  const handleSearch = (e) => {
+    e.preventDefault();
 
-  //   return data;
-  // };
+    setSearch(searchText);
+  };
 
-  // const handleSearch = (e) => {
-  //   e.preventDefault();
-  //   // const value = e.target.searchTitle.value;
-  //   setSearch(searchText);
-  // };
-
-  // if (isLoading) {
-  //   return <p>loading...</p>;
-  // }
+  if (isLoading) {
+    return <p className="text-xl text-center mt-32">loading...</p>;
+  }
 
   return (
     <section>
-       <Helmet>
+      <Helmet>
         <title>NovaHomes | All Properties Page</title>
       </Helmet>
       <div className="md:pt-1 md:pb-10 w-[98%] mx-auto">
@@ -54,8 +53,8 @@ const AllProperties = () => {
       </div>
 
       {/* search and dropdown menu div */}
-      {/* <div className="mt-24 flex flex-col-reverse md:flex-row justify-end items-start md:items-center w-[90%] mx-auto ">
-        <div className="mt-3 md:mt-0  w-full md:w-auto flex md:block justify-end md:justify-start">
+      <div className="mt-24 flex flex-col-reverse md:flex-row justify-end items-start md:items-center w-[90%] mx-auto ">
+        {/* <div className="mt-3 md:mt-0  w-full md:w-auto flex md:block justify-end md:justify-start">
           <Dropdown
             gradientDuoTone="redToYellow"
             label="SORT"
@@ -70,7 +69,7 @@ const AllProperties = () => {
               Latest Trends
             </Dropdown.Item>
           </Dropdown>
-        </div>
+        </div> */}
         <div className="flex flex-col md:flex-row md:items-center gap-3">
           <span className="text-2xl font-bold">Search Property</span>
           <form onSubmit={handleSearch}>
@@ -100,10 +99,10 @@ const AllProperties = () => {
             </label>
           </form>
         </div>
-      </div> */}
+      </div>
 
       <div className="w-[95%] md:w-full mx-auto">
-        {allAdminVerifiedProperites.map((property, idx) => (
+        {allAdminVerifiedProperitesBySearch.map((property, idx) => (
           <PropertyCard property={property} key={idx} idx={idx}></PropertyCard>
         ))}
       </div>

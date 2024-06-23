@@ -57,7 +57,7 @@ const OurTeam = () => {
         />
       </>
       <div className="flex flex-col md:flex-row items-center mt-14">
-        <div className="w-full md:w-1/2">
+        <div className="w-full md:w-1/2  ">
           <Swiper
             effect="cards"
             grabCursor={true}
@@ -68,6 +68,7 @@ const OurTeam = () => {
             {teamMembers.map((member, index) => (
               <SwiperSlide
                 key={index}
+                className=""
                 style={{ backgroundImage: `url(${member.img})` }}
               >
                 <div className="md:hidden swiper-slide-content flex flex-col justify-center gap-5">
